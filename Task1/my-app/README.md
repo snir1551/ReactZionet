@@ -1,6 +1,15 @@
 # React Course - Task 1: Understanding React Fundamentals
 
-This project was created using **Vite** with React and TypeScript template as part of a comprehensive React learning course. This README explains the core concepts covered in our React fundamentals lessons.
+This project demonstrates **React Hooks**, **React Router**, and **modern component architecture** using **Vite** with React and TypeScript. It includes interactive demos of core React concepts with a clean, separated project structure.
+
+## ✨ Features
+
+- 🔢 **Advanced Counter** - Demonstrates useState, useEffect, useCallback, and useMemo
+- 📝 **User Registration Form** - Shows useReducer for complex state management
+- 🧭 **React Router Navigation** - Client-side routing with multiple pages
+- 🎨 **CSS Organization** - Separate CSS files for clean code structure
+- 📊 **TypeScript Integration** - Type-safe React development
+- ⚡ **Vite** - Lightning-fast development with HMR
 
 ## 🚀 Project Setup
 
@@ -18,6 +27,8 @@ npm create vite@latest my-app -- --template react-ts
 npm install
 npm run dev
 ```
+
+The app will be available at `http://localhost:5173`
 
 ## 📚 Core React Concepts Covered
 
@@ -313,15 +324,56 @@ This is why React is one of the most popular libraries in the world for front-en
 
 ```
 my-app/
-├── public/          # Static assets
-├── src/             # Source code
-│   ├── App.tsx      # Main app component
-│   ├── main.tsx     # App entry point
-│   └── assets/      # Images, icons, etc.
-├── package.json     # Dependencies and scripts
-├── vite.config.ts   # Vite configuration
-└── tsconfig.json    # TypeScript configuration
+├── public/                # Static assets
+│   └── vite.svg          # Vite logo
+├── src/                   # Source code
+│   ├── components/        # Reusable React components
+│   │   ├── Counter.tsx   # Counter component with hooks demo
+│   │   ├── Navigation.tsx # Navigation bar component
+│   │   ├── Navigation.css # Navigation styles
+│   │   └── UserForm.tsx  # Registration form component
+│   ├── pages/             # Page components (routes)
+│   │   ├── Home.tsx      # Landing page with card links
+│   │   ├── Home.css      # Home page styles
+│   │   ├── CounterPage.tsx    # Counter demo page
+│   │   ├── CounterPage.css    # Counter page styles
+│   │   ├── RegisterPage.tsx   # Registration form page
+│   │   ├── RegisterPage.css   # Registration page styles
+│   │   └── About.tsx     # About page with project info
+│   ├── assets/            # Images, icons, etc.
+│   │   └── react.svg     # React logo
+│   ├── App.tsx            # Main app component with routing
+│   ├── App.css            # App styles
+│   ├── main.tsx           # App entry point
+│   └── index.css          # Global styles
+├── eslint.config.js       # ESLint configuration
+├── index.html             # HTML entry point
+├── package.json           # Dependencies and scripts
+├── tsconfig.json          # TypeScript configuration
+├── tsconfig.app.json      # App-specific TypeScript config
+├── tsconfig.node.json     # Node-specific TypeScript config
+└── vite.config.ts         # Vite configuration
 ```
 
----
+## 🗺️ Application Routes
+
+The application uses React Router for client-side navigation:
+
+| Route | Component | Description |
+|-------|-----------|-------------|
+| `/` | `Home` | Landing page with interactive cards linking to demos |
+| `/counter` | `CounterPage` | Advanced counter demonstrating useState, useEffect, useCallback, and useMemo |
+| `/register` | `RegisterPage` | User registration form with useReducer and validation |
+| `/about` | `About` | Project information, technologies used, and learning objectives |
+
+## 🎨 Styling Approach
+
+The project uses **CSS Modules** approach with separate CSS files for each component and page:
+
+- **Separation of Concerns**: Styles are separated from component logic
+- **Maintainability**: Each component has its own CSS file
+- **Clean Code**: TypeScript files focus on logic, CSS files handle presentation
+- **Standard Practice**: Follows React best practices for styling
+
+
 
