@@ -1,4 +1,5 @@
 import { useState, useEffect, useReducer, useMemo } from 'react';
+import './UserForm.css';
 
 // Define types for the form state
 interface FormState {
@@ -132,42 +133,26 @@ function UserForm() {
   };
 
   return (
-    <div style={{ 
-      padding: '20px', 
-      border: '2px solid #646cff', 
-      borderRadius: '8px', 
-      maxWidth: '500px',
-      margin: '20px auto'
-    }}>
+    <div className="user-form-container">
       <h2>User Registration Form</h2>
       
       {/* Progress bar */}
-      <div style={{ marginBottom: '20px' }}>
-        <div style={{ fontSize: '14px', marginBottom: '5px' }}>
+      <div className="user-form-progress">
+        <div className="user-form-progress-text">
           Completion: {completionPercentage}%
         </div>
-        <div style={{ 
-          width: '100%', 
-          height: '10px', 
-          backgroundColor: '#f0f0f0', 
-          borderRadius: '5px',
-          overflow: 'hidden'
-        }}>
+        <div className="user-form-progress-bar">
           <div 
-            style={{ 
-              width: `${completionPercentage}%`, 
-              height: '100%', 
-              backgroundColor: '#4CAF50',
-              transition: 'width 0.3s ease'
-            }}
+            className="user-form-progress-fill"
+            style={{ width: `${completionPercentage}%` }}
           />
         </div>
       </div>
 
       <form onSubmit={handleSubmit}>
         {/* Name Field */}
-        <div style={{ marginBottom: '15px' }}>
-          <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>
+        <div className="user-form-field">
+          <label className="user-form-label">
             Name:
           </label>
           <input
@@ -178,25 +163,19 @@ function UserForm() {
               field: 'name', 
               value: e.target.value 
             })}
-            style={{
-              width: '100%',
-              padding: '8px',
-              border: formState.errors.name ? '2px solid red' : '1px solid #ccc',
-              borderRadius: '4px',
-              fontSize: '16px'
-            }}
+            className={`user-form-input ${formState.errors.name ? 'error' : ''}`}
             placeholder="Enter your name"
           />
           {formState.errors.name && (
-            <div style={{ color: 'red', fontSize: '14px', marginTop: '5px' }}>
+            <div className="user-form-error">
               {formState.errors.name}
             </div>
           )}
         </div>
 
         {/* Email Field */}
-        <div style={{ marginBottom: '15px' }}>
-          <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>
+        <div className="user-form-field">
+          <label className="user-form-label">
             Email:
           </label>
           <input
@@ -207,25 +186,19 @@ function UserForm() {
               field: 'email', 
               value: e.target.value 
             })}
-            style={{
-              width: '100%',
-              padding: '8px',
-              border: formState.errors.email ? '2px solid red' : '1px solid #ccc',
-              borderRadius: '4px',
-              fontSize: '16px'
-            }}
+            className={`user-form-input ${formState.errors.email ? 'error' : ''}`}
             placeholder="Enter your email"
           />
           {formState.errors.email && (
-            <div style={{ color: 'red', fontSize: '14px', marginTop: '5px' }}>
+            <div className="user-form-error">
               {formState.errors.email}
             </div>
           )}
         </div>
 
         {/* Age Field */}
-        <div style={{ marginBottom: '20px' }}>
-          <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>
+        <div className="user-form-field">
+          <label className="user-form-label">
             Age:
           </label>
           <input
@@ -236,19 +209,13 @@ function UserForm() {
               field: 'age', 
               value: e.target.value 
             })}
-            style={{
-              width: '100%',
-              padding: '8px',
-              border: formState.errors.age ? '2px solid red' : '1px solid #ccc',
-              borderRadius: '4px',
-              fontSize: '16px'
-            }}
+            className={`user-form-input ${formState.errors.age ? 'error' : ''}`}
             placeholder="Enter your age"
             min="1"
             max="120"
           />
           {formState.errors.age && (
-            <div style={{ color: 'red', fontSize: '14px', marginTop: '5px' }}>
+            <div className="user-form-error">
               {formState.errors.age}
             </div>
           )}
@@ -258,17 +225,7 @@ function UserForm() {
         <button
           type="submit"
           disabled={!isFormValid || formState.isSubmitting}
-          style={{
-            width: '100%',
-            padding: '12px',
-            backgroundColor: isFormValid && !formState.isSubmitting ? '#4CAF50' : '#ccc',
-            color: 'white',
-            border: 'none',
-            borderRadius: '4px',
-            fontSize: '16px',
-            cursor: isFormValid && !formState.isSubmitting ? 'pointer' : 'not-allowed',
-            transition: 'background-color 0.3s ease'
-          }}
+          className="user-form-submit"
         >
           {formState.isSubmitting ? 'Submitting...' : 'Submit'}
         </button>
@@ -276,15 +233,10 @@ function UserForm() {
 
       {/* Submission History */}
       {submissionHistory.length > 0 && (
-        <div style={{ 
-          marginTop: '20px', 
-          padding: '10px', 
-          backgroundColor: '#f5f5f5', 
-          borderRadius: '4px' 
-        }}>
+        <div className="user-form-history">
           <h4>Previous Submissions ({submissionHistory.length}):</h4>
           {submissionHistory.slice(-3).map((submission, index) => (
-            <div key={index} style={{ marginBottom: '5px', fontSize: '14px' }}>
+            <div key={index} className="user-form-history-item">
               {submission.name} - {submission.email} - Age: {submission.age}
             </div>
           ))}

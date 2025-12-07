@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
+import './Counter.css';
 
 interface CounterProps {
   initialValue?: number;
@@ -50,80 +51,42 @@ function Counter({ initialValue = 0 }: CounterProps) {
   }, [count]);
 
   return (
-    <div style={{ 
-      padding: '20px', 
-      border: '2px solid #646cff', 
-      borderRadius: '8px', 
-      maxWidth: '400px',
-      margin: '20px auto'
-    }}>
+    <div className="counter-container">
       <h2>Advanced Counter Component</h2>
       
-      <div style={{ fontSize: '2rem', margin: '20px 0' }}>
-        Count: <span style={{ color: '#646cff' }}>{count}</span>
+      <div className="counter-display">
+        Count: <span className="counter-value">{count}</span>
       </div>
       
-      <div style={{ margin: '10px 0' }}>
+      <div className="counter-type">
         <span>Type: </span>
-        <span style={{ 
-          color: countType === 'even' ? 'green' : 'orange',
-          fontWeight: 'bold' 
-        }}>
+        <span className={`counter-type-${countType}`}>
           {countType}
         </span>
       </div>
 
-      <div style={{ margin: '20px 0' }}>
+      <div className="counter-buttons">
         <button 
           onClick={increment}
-          style={{ 
-            margin: '5px', 
-            padding: '10px 15px',
-            backgroundColor: '#4CAF50',
-            color: 'white',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer'
-          }}
+          className="counter-btn counter-btn-increment"
         >
           +1
         </button>
         <button 
           onClick={decrement}
-          style={{ 
-            margin: '5px', 
-            padding: '10px 15px',
-            backgroundColor: '#f44336',
-            color: 'white',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer'
-          }}
+          className="counter-btn counter-btn-decrement"
         >
           -1
         </button>
         <button 
           onClick={reset}
-          style={{ 
-            margin: '5px', 
-            padding: '10px 15px',
-            backgroundColor: '#ff9800',
-            color: 'white',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer'
-          }}
+          className="counter-btn counter-btn-reset"
         >
           Reset
         </button>
       </div>
 
-      <div style={{ 
-        marginTop: '20px', 
-        padding: '10px', 
-        backgroundColor: '#f5f5f5', 
-        borderRadius: '4px' 
-      }}>
+      <div className="counter-stats">
         <h4>Statistics:</h4>
         <p>History Sum: {historySum}</p>
         <p>History Length: {history.length}</p>
