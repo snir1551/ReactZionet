@@ -2,16 +2,16 @@
 
 This project demonstrates **React Hooks**, **React Router**, and **modern component architecture** using **Vite** with React and TypeScript. It includes interactive demos of core React concepts with a clean, separated project structure.
 
-## ✨ Features
+## Features
 
-- 🔢 **Advanced Counter** - Demonstrates useState, useEffect, useCallback, and useMemo
-- 📝 **User Registration Form** - Shows useReducer for complex state management
-- 🧭 **React Router Navigation** - Client-side routing with multiple pages
-- 🎨 **CSS Organization** - Separate CSS files for clean code structure
-- 📊 **TypeScript Integration** - Type-safe React development
-- ⚡ **Vite** - Lightning-fast development with HMR
+- **Advanced Counter** - Demonstrates useState, useEffect, useCallback, and useMemo
+- **User Registration Form** - Shows useReducer for complex state management
+- **React Router Navigation** - Client-side routing with multiple pages
+- **CSS Organization** - Separate CSS files for clean code structure
+- **TypeScript Integration** - Type-safe React development
+- **Vite** - Lightning-fast development with HMR
 
-## 🚀 Project Setup
+## Project Setup
 
 This project was initialized with:
 ```bash
@@ -30,7 +30,7 @@ npm run dev
 
 The app will be available at `http://localhost:5173`
 
-## 📚 Core React Concepts Covered
+## Core React Concepts Covered
 
 ### 1. React Hooks Overview
 
@@ -46,7 +46,7 @@ Hooks give function components state, lifecycle logic, and performance control. 
 
 ---
 
-## 🎯 Detailed Hook Explanations
+## Detailed Hook Explanations
 
 ### useState - State Management
 
@@ -78,10 +78,10 @@ const [count, setCount] = useState(0);
 | `[value]` | Runs only when dependencies change | `useEffect(() => updateTitle(), [title])` |
 
 **Common use cases:**
-- ✅ API calls
-- ✅ Timers (setInterval, setTimeout)
-- ✅ Event listeners
-- ✅ DOM updates
+- API calls
+- Timers (setInterval, setTimeout)
+- Event listeners
+- DOM updates
 
 **Why dependency arrays matter:**
 - Controls when the effect runs
@@ -143,9 +143,9 @@ const memoizedNumber = useMemo(() => expensiveFunction(), []); // Runs once (102
 - Only recalculates when dependencies change
 
 **Use cases:**
-- ✅ Heavy calculations
-- ✅ Filtering/sorting large lists
-- ✅ Creating derived values from state
+- Heavy calculations
+- Filtering/sorting large lists
+- Creating derived values from state
 
 ---
 
@@ -175,13 +175,13 @@ When passing functions to child components as props:
 - Together they provide significant performance improvements
 
 **When to use:**
-- ✅ Passing functions to child components
-- ✅ Lists with items that have event handlers
-- ✅ Performance-sensitive components
+- Passing functions to child components
+- Lists with items that have event handlers
+- Performance-sensitive components
 
 ---
 
-## 🆕 React 19 New Features
+## React 19 New Features
 
 React 19 introduces new hooks specifically designed for forms, async actions, and modern UX patterns:
 
@@ -209,23 +209,23 @@ Enables **Optimistic UI** updates:
 
 ---
 
-## 🧭 React Router - Navigation
+## React Router - Navigation
 
 React Router enables React applications to have multiple "pages" without full page reloads, creating a smooth Single Page Application (SPA) experience.
 
 ### Why React Router?
 
-#### ✅ Instant Navigation
+#### Instant Navigation
 - Page transitions happen immediately
 - No browser reload
 - Smooth and fast user experience
 
-#### ✅ State Preservation
+#### State Preservation
 - Since browser doesn't reload, all application state stays in memory
 - Form data persists when navigating between pages
 - Better user experience than traditional multi-page apps
 
-#### ✅ Advanced Routing Features
+#### Advanced Routing Features
 - **Nested Routes**: Routes within routes (`/dashboard/users`)
 - **Protected Routes**: Pages only for authenticated users
 - **Dynamic URLs**: URLs with variables (`/products/123`)
@@ -265,41 +265,41 @@ npm install react-router-dom
 
 ---
 
-## 🎯 Summary
+## Summary
 
 This course covers the fundamental building blocks of modern React development:
 
-### ✅ React provides a declarative and component-based approach to UI development
+### React provides a declarative and component-based approach to UI development
 - **Declarative**: Describe how UI should look, React handles updates
 - **Component-based**: Build UI from small, reusable pieces
 - Results in readable, organized, maintainable code
 
-### ✅ Vite is the fastest and easiest way to start a React application
+### Vite is the fastest and easiest way to start a React application
 - Modern development tool replacing Create React App
 - Significantly faster development experience
 - Hot Module Replacement (HMR)
 - Easy configuration
 
-### ✅ Nx is the enterprise solution for large teams and scalable architecture
+### Nx is the enterprise solution for large teams and scalable architecture
 - Monorepo management tool
 - Code sharing between applications
 - Fast builds with caching
 - Organized architecture for large teams
 
-### ✅ Core Hooks power real-world React logic
+### Core Hooks power real-world React logic
 - `useState` → Local state management
 - `useEffect` → API calls and side effects
 - `useReducer` → Complex logic with multiple actions
 - `useMemo` → Performance optimization for expensive calculations
 - `useCallback` → Prevents unnecessary function recreation
 
-### ✅ React Router adds modern multi-page navigation without page reloads
+### React Router adds modern multi-page navigation without page reloads
 - No full browser refresh
 - Much faster and smoother
 - Supports dynamic routes, protection, and nested routing
 - Creates SPA that feels like a traditional multi-page website
 
-## 🏆 Final Goal
+## Final Goal
 
 **React enables building applications that are fast, reusable, scalable and maintainable.**
 
@@ -320,7 +320,7 @@ This is why React is one of the most popular libraries in the world for front-en
 - `npm run lint` - Run ESLint
 - `npm run preview` - Preview production build
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 my-app/
@@ -366,7 +366,7 @@ The application uses React Router for client-side navigation:
 | `/register` | `RegisterPage` | User registration form with useReducer and validation |
 | `/about` | `About` | Project information, technologies used, and learning objectives |
 
-## 🎨 Styling Approach
+## Styling Approach
 
 The project uses **CSS Modules** approach with separate CSS files for each component and page:
 
