@@ -1,25 +1,21 @@
 import Counter from '../components/Counter';
+import './CounterPage.css';
 
 function CounterPage() {
   return (
-    <div style={{ padding: '20px', maxWidth: '800px', margin: '0 auto' }}>
-      <div style={{ textAlign: 'center', marginBottom: '30px' }}>
-        <h1 style={{ color: '#646cff' }}>Advanced Counter Demo</h1>
-        <p style={{ fontSize: '18px', color: '#666' }}>
+    <div className="counter-page-container">
+      <div className="counter-page-header">
+        <h1>Advanced Counter Demo</h1>
+        <p>
           Explore React hooks: useState, useEffect, useCallback, and useMemo
         </p>
       </div>
 
       <Counter initialValue={0} />
       
-      <div style={{ 
-        marginTop: '40px',
-        padding: '20px',
-        backgroundColor: '#f9f9f9',
-        borderRadius: '8px'
-      }}>
-        <h3 style={{ marginTop: 0 }}>Features Demonstrated:</h3>
-        <ul style={{ lineHeight: '1.8' }}>
+      <div className="counter-page-info">
+        <h3>Features Demonstrated:</h3>
+        <ul>
           <li><strong>useState:</strong> Managing count value and step size</li>
           <li><strong>useEffect:</strong> Syncing document title with counter value</li>
           <li><strong>useCallback:</strong> Memoizing increment/decrement functions to prevent unnecessary re-renders</li>
