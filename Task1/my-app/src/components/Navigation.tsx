@@ -30,7 +30,19 @@ function Navigation() {
         to="/" 
         style={linkStyle(location.pathname === '/')}
       >
-        🏠 Home
+        Home
+      </Link>
+      <Link 
+        to="/counter" 
+        style={linkStyle(location.pathname === '/counter')}
+      >
+        Counter
+      </Link>
+      <Link 
+        to="/register" 
+        style={linkStyle(location.pathname === '/register')}
+      >
+        Register
       </Link>
       <Link 
         to="/about" 

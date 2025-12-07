@@ -35,7 +35,7 @@ function About() {
       </div>
 
       <section style={{ marginBottom: '30px' }}>
-        <h2>🚀 Project Overview</h2>
+        <h2>Project Overview</h2>
         <p>
           This React application was created as part of the <strong>Zionet React Course - Task 1</strong>. 
           It demonstrates fundamental React concepts including hooks, component composition, and routing.
@@ -43,7 +43,7 @@ function About() {
       </section>
 
       <section style={{ marginBottom: '30px' }}>
-        <h2>🎯 Features Implemented</h2>
+        <h2>Features Implemented</h2>
         <ul>
           <li><strong>Advanced Counter Component</strong> - Demonstrates useState, useEffect, useCallback, and useMemo hooks</li>
           <li><strong>User Registration Form</strong> - Shows useReducer for complex state management and form validation</li>
@@ -96,7 +96,7 @@ function About() {
       </section>
 
       <section style={{ marginBottom: '30px' }}>
-        <h2>📚 Learning Objectives Achieved</h2>
+        <h2>Learning Objectives Achieved</h2>
         <div style={{ 
           backgroundColor: '#e8f5e8', 
           padding: '15px', 
@@ -104,29 +104,16 @@ function About() {
           borderLeft: '4px solid #4CAF50'
         }}>
           <ul style={{ margin: 0 }}>
-            <li>✅ Understanding React hooks (useState, useEffect, useReducer, useMemo, useCallback)</li>
-            <li>✅ Component composition and reusability</li>
-            <li>✅ State management patterns</li>
-            <li>✅ Side effects and lifecycle management</li>
-            <li>✅ Performance optimization techniques</li>
-            <li>✅ Form handling and validation</li>
-            <li>✅ Client-side routing implementation</li>
-            <li>✅ TypeScript integration with React</li>
+            <li>Understanding React hooks (useState, useEffect, useReducer, useMemo, useCallback)</li>
+            <li>Component composition and reusability</li>
+            <li>State management patterns</li>
+            <li>Side effects and lifecycle management</li>
+            <li>Performance optimization techniques</li>
+            <li>Form handling and validation</li>
+            <li>Client-side routing implementation</li>
+            <li>TypeScript integration with React</li>
           </ul>
         </div>
-      </section>
-
-      <section>
-        <h2>🔮 Next Steps</h2>
-        <p>Future enhancements could include:</p>
-        <ul>
-          <li>Integration with external APIs</li>
-          <li>Advanced state management with Context API or Redux</li>
-          <li>Unit testing with Jest and React Testing Library</li>
-          <li>Styling with CSS-in-JS libraries or Tailwind CSS</li>
-          <li>Progressive Web App (PWA) features</li>
-          <li>Server-side rendering with Next.js</li>
-        </ul>
       </section>
     </div>
   );

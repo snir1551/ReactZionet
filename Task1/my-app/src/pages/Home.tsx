@@ -1,41 +1,152 @@
-import Counter from '../components/Counter';
-import UserForm from '../components/UserForm';
+import { Link } from 'react-router-dom';
 
 function Home() {
   return (
-    <div style={{ padding: '20px' }}>
-      <div style={{ textAlign: 'center', marginBottom: '30px' }}>
-        <h1 style={{ color: '#646cff' }}>React Hooks Demo</h1>
-        <p style={{ fontSize: '18px', color: '#666' }}>
-          Welcome to our interactive React hooks demonstration!
-        </p>
+    <div style={{ 
+      padding: '40px 20px',
+      maxWidth: '900px',
+      margin: '0 auto',
+      textAlign: 'center'
+    }}>
+      <h1 style={{ 
+        color: '#646cff', 
+        fontSize: '3rem',
+        marginBottom: '20px'
+      }}>
+        Welcome to React Hooks Demo
+      </h1>
+      <p style={{ 
+        fontSize: '1.3rem', 
+        color: '#666',
+        marginBottom: '50px'
+      }}>
+        Explore interactive examples of React hooks and components
+      </p>
+
+      <div style={{ 
+        display: 'grid', 
+        gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+        gap: '30px',
+        marginTop: '40px'
+      }}>
+        {/* Counter Card */}
+        <Link to="/counter" style={{ textDecoration: 'none', color: 'inherit' }}>
+          <div style={{ 
+            padding: '30px',
+            border: '2px solid #646cff',
+            borderRadius: '12px',
+            backgroundColor: '#fff',
+            transition: 'transform 0.2s, box-shadow 0.2s',
+            cursor: 'pointer',
+            height: '100%'
+          }}
+          onMouseOver={(e) => {
+            e.currentTarget.style.transform = 'translateY(-5px)';
+            e.currentTarget.style.boxShadow = '0 10px 20px rgba(100, 108, 255, 0.2)';
+          }}
+          onMouseOut={(e) => {
+            e.currentTarget.style.transform = 'translateY(0)';
+            e.currentTarget.style.boxShadow = 'none';
+          }}>
+            <h2 style={{ color: '#646cff', marginTop: 0 }}>Counter</h2>
+            <p style={{ color: '#666', lineHeight: '1.6' }}>
+              Advanced counter demonstrating useState, useEffect, useCallback, and useMemo hooks
+            </p>
+            <div style={{ 
+              marginTop: '20px',
+              padding: '10px',
+              backgroundColor: '#f0f0ff',
+              borderRadius: '6px',
+              fontSize: '14px'
+            }}>
+              <strong>Learn:</strong> State management & performance optimization
+            </div>
+          </div>
+        </Link>
+
+        {/* Registration Card */}
+        <Link to="/register" style={{ textDecoration: 'none', color: 'inherit' }}>
+          <div style={{ 
+            padding: '30px',
+            border: '2px solid #61dafb',
+            borderRadius: '12px',
+            backgroundColor: '#fff',
+            transition: 'transform 0.2s, box-shadow 0.2s',
+            cursor: 'pointer',
+            height: '100%'
+          }}
+          onMouseOver={(e) => {
+            e.currentTarget.style.transform = 'translateY(-5px)';
+            e.currentTarget.style.boxShadow = '0 10px 20px rgba(97, 218, 251, 0.2)';
+          }}
+          onMouseOut={(e) => {
+            e.currentTarget.style.transform = 'translateY(0)';
+            e.currentTarget.style.boxShadow = 'none';
+          }}>
+            <h2 style={{ color: '#61dafb', marginTop: 0 }}>Registration</h2>
+            <p style={{ color: '#666', lineHeight: '1.6' }}>
+              User registration form with useReducer for complex state management and validation
+            </p>
+            <div style={{ 
+              marginTop: '20px',
+              padding: '10px',
+              backgroundColor: '#f0fcff',
+              borderRadius: '6px',
+              fontSize: '14px'
+            }}>
+              <strong>Learn:</strong> Complex state & form handling
+            </div>
+          </div>
+        </Link>
+
+        {/* About Card */}
+        <Link to="/about" style={{ textDecoration: 'none', color: 'inherit' }}>
+          <div style={{ 
+            padding: '30px',
+            border: '2px solid #4CAF50',
+            borderRadius: '12px',
+            backgroundColor: '#fff',
+            transition: 'transform 0.2s, box-shadow 0.2s',
+            cursor: 'pointer',
+            height: '100%'
+          }}
+          onMouseOver={(e) => {
+            e.currentTarget.style.transform = 'translateY(-5px)';
+            e.currentTarget.style.boxShadow = '0 10px 20px rgba(76, 175, 80, 0.2)';
+          }}
+          onMouseOut={(e) => {
+            e.currentTarget.style.transform = 'translateY(0)';
+            e.currentTarget.style.boxShadow = 'none';
+          }}>
+            <h2 style={{ color: '#4CAF50', marginTop: 0 }}>About</h2>
+            <p style={{ color: '#666', lineHeight: '1.6' }}>
+              Learn about this project, the technologies used, and the learning objectives
+            </p>
+            <div style={{ 
+              marginTop: '20px',
+              padding: '10px',
+              backgroundColor: '#f0fff0',
+              borderRadius: '6px',
+              fontSize: '14px'
+            }}>
+              <strong>Discover:</strong> Project details & tech stack
+            </div>
+          </div>
+        </Link>
       </div>
 
       <div style={{ 
-        display: 'flex', 
-        flexDirection: 'column', 
-        gap: '20px',
-        alignItems: 'center'
-      }}>
-        <Counter initialValue={0} />
-        <UserForm />
-      </div>
-      
-      <div style={{ 
-        textAlign: 'center', 
-        marginTop: '40px',
-        padding: '20px',
+        marginTop: '60px',
+        padding: '25px',
         backgroundColor: '#f9f9f9',
-        borderRadius: '8px'
+        borderRadius: '12px',
+        borderLeft: '4px solid #646cff'
       }}>
-        <h3>🎯 What you're seeing:</h3>
-        <ul style={{ textAlign: 'left', maxWidth: '600px', margin: '0 auto' }}>
-          <li><strong>Counter Component:</strong> Uses useState, useEffect, useCallback, and useMemo</li>
-          <li><strong>User Form:</strong> Demonstrates useReducer for complex state management</li>
-          <li><strong>Real-time validation</strong> and form completion tracking</li>
-          <li><strong>Performance optimizations</strong> with memoization</li>
-          <li><strong>Side effects</strong> like document title updates and local storage</li>
-        </ul>
+        <h3 style={{ marginTop: 0, color: '#333' }}>🚀 Getting Started</h3>
+        <p style={{ color: '#666', lineHeight: '1.8' }}>
+          Click on any card above to explore different React concepts and hooks in action. 
+          Each page demonstrates practical implementations with detailed explanations.
+        </p>
       </div>
     </div>
   );
