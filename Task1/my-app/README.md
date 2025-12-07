@@ -313,7 +313,7 @@ This is why React is one of the most popular libraries in the world for front-en
 
 ---
 
-## 🛠 Development Commands
+## Development Commands
 
 - `npm run dev` - Start development server
 - `npm run build` - Build for production
@@ -355,7 +355,7 @@ my-app/
 └── vite.config.ts         # Vite configuration
 ```
 
-## 🗺️ Application Routes
+## Application Routes
 
 The application uses React Router for client-side navigation:
 
