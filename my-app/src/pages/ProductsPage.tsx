@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { fetchProducts, searchProducts, fetchProductsByCategory, fetchCategories } from '../api/products';
+import ProductCard from '../components/ProductCard';
 import './ProductsPage.css';
 
 function ProductsPage() {
@@ -144,28 +144,7 @@ function ProductsPage() {
         
         <div className="products-grid">
           {data?.products.map((product) => (
-            <Link key={product.id} to={`/products/${product.id}`} className="product-link">
-              <div className="product-card">
-                {product.thumbnail && (
-                  <img 
-                    src={product.thumbnail} 
-                    alt={product.title}
-                    className="product-image"
-                  />
-                )}
-                <div className="product-info">
-                  <h3 className="product-title">{product.title}</h3>
-                  <p className="product-price">${product.price}</p>
-                  <p className="product-category">{product.category}</p>
-                  <p className="product-description">
-                    {product.description.length > 100 
-                      ? `${product.description.substring(0, 100)}...`
-                      : product.description
-                    }
-                  </p>
-                </div>
-              </div>
-            </Link>
+            <ProductCard key={product.id} product={product} />
           ))}
         </div>
       </div>
