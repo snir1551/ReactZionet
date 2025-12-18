@@ -13,18 +13,6 @@ function Navigation() {
         Home
       </Link>
       <Link 
-        to="/counter" 
-        className={`nav-link ${location.pathname === '/counter' ? 'active' : ''}`}
-      >
-        Counter
-      </Link>
-      <Link 
-        to="/register" 
-        className={`nav-link ${location.pathname === '/register' ? 'active' : ''}`}
-      >
-        Register
-      </Link>
-      <Link 
         to="/products" 
         className={`nav-link ${location.pathname === '/products' ? 'active' : ''}`}
       >
