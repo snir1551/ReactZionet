@@ -1,9 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import { useParams, Link } from 'react-router-dom';
 import { fetchProductById } from '../api/products';
+import { useCart } from '../hooks/useCart';
 import './ProductDetailPage.css';
 
 function ProductDetailPage() {
+  const { addItem, openSidebar } = useCart();
   // Get the id from URL parameters
   const { id } = useParams<{ id: string }>();
   
@@ -16,6 +18,13 @@ function ProductDetailPage() {
     queryFn: () => fetchProductById(productId!),
     enabled: !!productId && !isNaN(productId) // Only run if productId is valid
   });
+
+  const handleAddToCart = () => {
+    if (product) {
+      addItem(product);
+      openSidebar();
+    }
+  };
 
   // Show loading state
   if (isLoading) {
@@ -84,6 +93,12 @@ function ProductDetailPage() {
               <h3>Description</h3>
               <p>{product.description}</p>
             </div>
+            <button
+              className="add-to-cart-btn large"
+              onClick={handleAddToCart}
+            >
+              Add to Cart
+            </button>
           </div>
         </div>
       )}
