@@ -1,0 +1,34 @@
+.register-page-container {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.register-page-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.register-page-header h1 {
+  color: #646cff;
+}
+
+.register-page-header p {
+  font-size: 18px;
+  color: #666;
+}
+
+.register-page-info {
+  margin-top: 40px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+.register-page-info h3 {
+  margin-top: 0;
+}
+
+.register-page-info ul {
+  line-height: 1.8;
+}
