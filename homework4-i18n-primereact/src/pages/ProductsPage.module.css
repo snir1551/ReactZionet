@@ -1,0 +1,126 @@
+.productsPage {
+  padding: 2rem;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.header {
+  margin-bottom: 2rem;
+}
+
+.header h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--text-color);
+}
+
+.header p {
+  font-size: 1rem;
+  color: var(--text-color);
+  opacity: 0.7;
+}
+
+/* DataTable styling */
+:global(.p-datatable) {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+:global(.p-datatable .p-datatable-thead > tr > th) {
+  background-color: var(--nav-bg);
+  color: var(--text-color);
+  font-weight: 600;
+  padding: 1rem;
+  border: none;
+  border-bottom: 2px solid var(--border-color);
+}
+
+:global(.p-datatable .p-datatable-tbody > tr) {
+  transition: background-color 0.2s;
+}
+
+:global(.p-datatable .p-datatable-tbody > tr:hover) {
+  background-color: var(--nav-bg);
+}
+
+:global(.p-datatable .p-datatable-tbody > tr > td) {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  vertical-align: middle;
+}
+
+/* Product image styling */
+.productImage {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Pagination styling */
+:global(.p-paginator) {
+  background: var(--nav-bg);
+  border: none;
+  border-top: 1px solid var(--border-color);
+  padding: 1rem;
+  border-radius: 0 0 8px 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+:global(.p-paginator .p-paginator-first),
+:global(.p-paginator .p-paginator-prev),
+:global(.p-paginator .p-paginator-next),
+:global(.p-paginator .p-paginator-last),
+:global(.p-paginator .p-paginator-page) {
+  min-width: 2.5rem;
+  height: 2.5rem;
+  margin: 0 0.25rem;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  background: var(--button-bg);
+  color: var(--text-color);
+  transition: all 0.2s;
+}
+
+:global(.p-paginator .p-paginator-page.p-highlight) {
+  background: #6366f1;
+  border-color: #6366f1;
+  color: white;
+}
+
+:global(.p-paginator .p-paginator-first:hover),
+:global(.p-paginator .p-paginator-prev:hover),
+:global(.p-paginator .p-paginator-next:hover),
+:global(.p-paginator .p-paginator-last:hover),
+:global(.p-paginator .p-paginator-page:hover) {
+  background: var(--nav-bg);
+  border-color: #6366f1;
+}
+
+:global(.p-dropdown) {
+  border: 1px solid var(--border-color);
+  background: var(--button-bg);
+  border-radius: 6px;
+  height: 2.5rem;
+}
+
+/* Button styling */
+:global(.p-button) {
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+:global(.p-button:hover) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
