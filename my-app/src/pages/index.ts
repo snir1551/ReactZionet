@@ -1,0 +1,6 @@
+export { default as About } from './About'
+export { default as CounterPage } from './CounterPage'
+export { default as Home } from './Home'
+export { default as ProductDetailPage } from './ProductDetailPage'
+export { default as ProductsPage } from './ProductsPage'
+export { default as RegisterPage } from './RegisterPage'
