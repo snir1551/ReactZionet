@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import './About.css';
 
-function About() {
+export const About = () => {
   const [visitTime, setVisitTime] = useState<string>('');
   const [pageViews, setPageViews] = useState<number>(0);
 
@@ -83,6 +83,4 @@ function About() {
       </section>
     </div>
   );
-}
-
-export default About;
+};

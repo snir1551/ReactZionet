@@ -62,7 +62,7 @@ function formReducer(state: FormState, action: FormAction): FormState {
   }
 }
 
-function UserForm() {
+export const UserForm = () => {
   const [formState, dispatch] = useReducer(formReducer, initialFormState);
   const [submissionHistory, setSubmissionHistory] = useState<FormState[]>([]);
 
@@ -244,6 +244,4 @@ function UserForm() {
       )}
     </div>
   );
-}
-
-export default UserForm;
+};

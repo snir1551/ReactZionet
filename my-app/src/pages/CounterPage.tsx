@@ -1,7 +1,7 @@
-import Counter from '../components/Counter';
+import { Counter } from '../components/Counter';
 import './CounterPage.css';
 
-function CounterPage() {
+export const CounterPage = () => {
   return (
     <div className="counter-page-container">
       <div className="counter-page-header">
@@ -25,6 +25,4 @@ function CounterPage() {
       </div>
     </div>
   );
-}
-
-export default CounterPage;
+};

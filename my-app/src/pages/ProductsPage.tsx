@@ -2,11 +2,11 @@ import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import { fetchProducts, searchProducts, fetchProductsByCategory, fetchCategories } from '../api/products';
 import { useCart } from '../hooks/useCart';
-import ProductCard from '../components/ProductCard';
+import { ProductCard } from '../components/ProductCard';
 import type { Product } from '../api/types';
 import './ProductsPage.css';
 
-function ProductsPage() {
+export const ProductsPage = () => {
   const { addItem, openSidebar } = useCart();
   // State for pagination and filters
   const [page, setPage] = useState(1);
@@ -190,6 +190,4 @@ function ProductsPage() {
       )}
     </div>
   );
-}
-
-export default ProductsPage;
+};

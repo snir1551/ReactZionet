@@ -4,7 +4,7 @@ import { fetchProductById } from '../api/products';
 import { useCart } from '../hooks/useCart';
 import './ProductDetailPage.css';
 
-function ProductDetailPage() {
+export const ProductDetailPage = () => {
   const { addItem, openSidebar } = useCart();
   // Get the id from URL parameters
   const { id } = useParams<{ id: string }>();
@@ -104,6 +104,4 @@ function ProductDetailPage() {
       )}
     </div>
   );
-}
-
-export default ProductDetailPage;
+};
