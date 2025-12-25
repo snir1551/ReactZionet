@@ -14,6 +14,7 @@ function App() {
         <Navigation />
         <Routes>
           <Route path="/" element={<ProductsPage />} />
+          <Route path="/products" element={<ProductsPage />} />
           <Route path="/products/:id" element={<ProductDetailPage />} />
         </Routes>
       </BrowserRouter>
