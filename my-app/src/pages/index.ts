@@ -1,0 +1,6 @@
+export { About } from './About'
+export { CounterPage } from './CounterPage'
+export { Home } from './Home'
+export { ProductDetailPage } from './ProductDetailPage'
+export { ProductsPage } from './ProductsPage'
+export { RegisterPage } from './RegisterPage'

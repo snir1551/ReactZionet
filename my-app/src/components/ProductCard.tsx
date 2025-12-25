@@ -1,12 +1,19 @@
 import { Link } from 'react-router-dom';
 import type { Product } from '../api/types';
-import './ProductCard.css';
 
 interface ProductCardProps {
   product: Product;
+  onAddToCart?: (product: Product) => void;
 }
 
-function ProductCard({ product }: ProductCardProps) {
+export const ProductCard = ({ product, onAddToCart }: ProductCardProps) => {
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.preventDefault(); // Prevent navigation
+    if (onAddToCart) {
+      onAddToCart(product);
+    }
+  };
+
   return (
     <Link to={`/products/${product.id}`} className="product-link">
       <div className="product-card">
@@ -27,10 +34,16 @@ function ProductCard({ product }: ProductCardProps) {
               : product.description
             }
           </p>
+          {onAddToCart && (
+            <button
+              className="add-to-cart-btn"
+              onClick={handleAddToCart}
+            >
+              Add to Cart
+            </button>
+          )}
         </div>
       </div>
     </Link>
   );
-}
-
-export default ProductCard;
+};

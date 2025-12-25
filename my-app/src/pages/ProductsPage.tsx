@@ -1,10 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import { fetchProducts, searchProducts, fetchProductsByCategory, fetchCategories } from '../api/products';
-import ProductCard from '../components/ProductCard';
+import { useCart } from '../hooks/useCart';
+import { ProductCard } from '../components/ProductCard';
+import type { Product } from '../api/types';
 import './ProductsPage.css';
 
-function ProductsPage() {
+export const ProductsPage = () => {
+  const { addItem, openSidebar } = useCart();
   // State for pagination and filters
   const [page, setPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
@@ -37,6 +40,11 @@ function ProductsPage() {
     placeholderData: (previousData) => previousData, // Keep previous data while loading new data
     staleTime: 1000 * 60 * 5, // Data stays fresh for 5 minutes
   });
+
+  const handleAddToCart = (product: Product) => {
+    addItem(product);
+    openSidebar();
+  };
 
   // Show loading state only for initial load
   if (isLoading && !data) {
@@ -144,7 +152,11 @@ function ProductsPage() {
         
         <div className="products-grid">
           {data?.products.map((product) => (
-            <ProductCard key={product.id} product={product} />
+            <ProductCard 
+              key={product.id} 
+              product={product}
+              onAddToCart={handleAddToCart}
+            />
           ))}
         </div>
       </div>
@@ -178,6 +190,4 @@ function ProductsPage() {
       )}
     </div>
   );
-}
-
-export default ProductsPage;
+};

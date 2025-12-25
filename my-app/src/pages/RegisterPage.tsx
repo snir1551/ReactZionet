@@ -1,7 +1,7 @@
-import UserForm from '../components/UserForm';
+import { UserForm } from '../components/UserForm';
 import './RegisterPage.css';
 
-function RegisterPage() {
+export const RegisterPage = () => {
   return (
     <div className="register-page-container">
       <div className="register-page-header">
@@ -25,6 +25,4 @@ function RegisterPage() {
       </div>
     </div>
   );
-}
-
-export default RegisterPage;
+};

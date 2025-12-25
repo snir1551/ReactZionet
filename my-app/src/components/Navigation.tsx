@@ -1,43 +1,47 @@
-import { Link, useLocation } from 'react-router-dom';
-import './Navigation.css';
+import { NavLink } from 'react-router';
+import { useCart } from '../hooks/useCart';
+import { useThemeStore } from '../stores/themeStore';
 
-function Navigation() {
-  const location = useLocation();
+export const Navigation = () => {
+  const { totalItems, toggleSidebar } = useCart();
+  const { theme, toggleTheme } = useThemeStore();
 
   return (
     <nav className="navigation">
-      <Link 
-        to="/" 
-        className={`nav-link ${location.pathname === '/' ? 'active' : ''}`}
-      >
+      <NavLink to="/" className="nav-link">
         Home
-      </Link>
-      <Link 
-        to="/counter" 
-        className={`nav-link ${location.pathname === '/counter' ? 'active' : ''}`}
-      >
+      </NavLink>
+      <NavLink to="/counter" className="nav-link">
         Counter
-      </Link>
-      <Link 
-        to="/register" 
-        className={`nav-link ${location.pathname === '/register' ? 'active' : ''}`}
-      >
+      </NavLink>
+      <NavLink to="/register" className="nav-link">
         Register
-      </Link>
-      <Link 
-        to="/products" 
-        className={`nav-link ${location.pathname === '/products' ? 'active' : ''}`}
-      >
+      </NavLink>
+      <NavLink to="/products" className="nav-link">
         Products
-      </Link>
-      <Link 
-        to="/about" 
-        className={`nav-link ${location.pathname === '/about' ? 'active' : ''}`}
-      >
+      </NavLink>
+      <NavLink to="/about" className="nav-link">
         About
-      </Link>
+      </NavLink>
+      
+      <button
+        className="theme-toggle"
+        onClick={toggleTheme}
+        aria-label="Toggle theme"
+      >
+        {theme === 'light' ? '🌙' : '☀️'}
+      </button>
+      
+      <button
+        className="cart-button"
+        onClick={toggleSidebar}
+        aria-label="Open cart"
+      >
+        🛒
+        {totalItems > 0 && (
+          <span className="cart-badge">{totalItems}</span>
+        )}
+      </button>
     </nav>
   );
-}
-
-export default Navigation;
+};

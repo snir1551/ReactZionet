@@ -1,7 +1,7 @@
 import { useIsFetching } from '@tanstack/react-query';
 import './GlobalFetchingIndicator.css';
 
-function GlobalFetchingIndicator() {
+export const GlobalFetchingIndicator = () => {
   const isFetching = useIsFetching();
 
   if (!isFetching) return null;
@@ -12,6 +12,4 @@ function GlobalFetchingIndicator() {
       <span>Loading...</span>
     </div>
   );
-}
-
-export default GlobalFetchingIndicator;
+};

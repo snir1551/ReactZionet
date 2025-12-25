@@ -5,7 +5,7 @@ interface CounterProps {
   initialValue?: number;
 }
 
-function Counter({ initialValue = 0 }: CounterProps) {
+export const Counter = ({ initialValue = 0 }: CounterProps) => {
   const [count, setCount] = useState(initialValue);
   const [history, setHistory] = useState<number[]>([initialValue]);
 
@@ -94,6 +94,4 @@ function Counter({ initialValue = 0 }: CounterProps) {
       </div>
     </div>
   );
-}
-
-export default Counter;
+};
