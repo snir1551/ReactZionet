@@ -1,18 +1,22 @@
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
+import { useTranslation, Trans } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
+import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
+import { Button } from 'primereact/button';
 import { fetchProducts, searchProducts, fetchProductsByCategory, fetchCategories } from '../api/products';
-import { useCart } from '../hooks/useCart';
-import { ProductCard } from '../components/ProductCard';
 import type { Product } from '../api/types';
 import './ProductsPage.css';
 
 export const ProductsPage = () => {
-  const { addItem, openSidebar } = useCart();
-  // State for pagination and filters
-  const [page, setPage] = useState(1);
+  const { t, i18n } = useTranslation('products');
+  const { t: tCommon } = useTranslation('common');
+  const navigate = useNavigate();
+  
+  // State for filters
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
-  const productsPerPage = 20;
   
   // Fetch categories
   const { data: categories } = useQuery({
@@ -20,40 +24,70 @@ export const ProductsPage = () => {
     queryFn: fetchCategories
   });
   
-  // Dynamic query function based on filters
+  // Dynamic query function based on filters - fetch all products for DataTable pagination
   const getQueryFn = () => {
-    const skip = (page - 1) * productsPerPage;
+    const limit = 100; // Fetch more products, DataTable will handle pagination
+    const skip = 0;
     
     if (searchQuery.trim()) {
-      return () => searchProducts(searchQuery.trim(), productsPerPage, skip);
+      return () => searchProducts(searchQuery.trim(), limit, skip);
     }
     if (selectedCategory) {
-      return () => fetchProductsByCategory(selectedCategory, productsPerPage, skip);
+      return () => fetchProductsByCategory(selectedCategory, limit, skip);
     }
-    return () => fetchProducts(productsPerPage, skip);
+    return () => fetchProducts(limit, skip);
   };
   
   // Using TanStack Query with filter-aware query keys
   const { data, isLoading, error, isFetching } = useQuery({
-    queryKey: ['products', page, searchQuery, selectedCategory],
+    queryKey: ['products', searchQuery, selectedCategory],
     queryFn: getQueryFn(),
-    placeholderData: (previousData) => previousData, // Keep previous data while loading new data
     staleTime: 1000 * 60 * 5, // Data stays fresh for 5 minutes
   });
 
-  const handleAddToCart = (product: Product) => {
-    addItem(product);
-    openSidebar();
+  // Column templates for DataTable
+  const imageBodyTemplate = (product: Product) => {
+    return (
+      <img 
+        src={product.thumbnail} 
+        alt={product.title} 
+        style={{ width: '80px', height: '80px', objectFit: 'cover', borderRadius: '4px' }} 
+      />
+    );
+  };
+
+  const priceBodyTemplate = (product: Product) => {
+    // Bonus A: Locale-aware price formatting using Intl.NumberFormat
+    const locale = i18n.language === 'he' ? 'he-IL' : 'en-US';
+    const formatter = new Intl.NumberFormat(locale, {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+    return <span>{formatter.format(product.price)}</span>;
+  };
+
+  const actionBodyTemplate = (product: Product) => {
+    return (
+      <Button 
+        label={tCommon('viewDetails')}
+        icon="pi pi-eye"
+        onClick={() => navigate(`/products/${product.id}`)}
+        className="p-button-sm"
+        outlined
+      />
+    );
   };
 
   // Show loading state only for initial load
   if (isLoading && !data) {
     return (
       <div className="products-container">
-        <h1>Product Catalog</h1>
+        <h1>{t('catalog')}</h1>
         <div className="loading">
           <div className="loading-spinner"></div>
-          <p>Loading products...</p>
+          <p>{tCommon('loading')}</p>
         </div>
       </div>
     );
@@ -63,12 +97,12 @@ export const ProductsPage = () => {
   if (error) {
     return (
       <div className="products-container">
-        <h1>Product Catalog</h1>
+        <h1>{t('catalog')}</h1>
         <div className="error">
-          <h2>Something went wrong!</h2>
-          <p>Error: {error.message}</p>
+          <h2>{tCommon('somethingWentWrong')}</h2>
+          <p>{tCommon('error')}: {error.message}</p>
           <button onClick={() => window.location.reload()}>
-            Try Again
+            {tCommon('tryAgain')}
           </button>
         </div>
       </div>
@@ -78,7 +112,7 @@ export const ProductsPage = () => {
   // Show products data
   return (
     <div className="products-container">
-      <h1>Product Catalog</h1>
+      <h1>{t('catalog')}</h1>
       
       {/* Filter Controls */}
       <form 
@@ -86,33 +120,31 @@ export const ProductsPage = () => {
         className="filters-container"
       >
         <div className="filter-group">
-          <label htmlFor="search">Search Products:</label>
+          <label htmlFor="search">{t('search')}</label>
           <input
             id="search"
             type="text"
-            placeholder="Search products..."
+            placeholder={t('search')}
             value={searchQuery}
             onChange={(e) => {
               console.log('Search input changed:', e.target.value);
               setSearchQuery(e.target.value);
-              setPage(1); // Reset page when search changes
             }}
             className="search-input"
           />
         </div>
         
         <div className="filter-group">
-          <label htmlFor="category">Filter by Category:</label>
+          <label htmlFor="category">{t('category')}:</label>
           <select
             id="category"
             value={selectedCategory}
             onChange={(e) => {
               setSelectedCategory(e.target.value);
-              setPage(1); // Reset page when category changes
             }}
             className="category-select"
           >
-            <option value="">All Categories</option>
+            <option value="">{t('allCategories')}</option>
             {Array.isArray(categories) && categories?.map((category, index) => (
               <option key={category.slug || index} value={category.slug}>
                 {category.name}
@@ -131,63 +163,75 @@ export const ProductsPage = () => {
             }}
             className="clear-filters-button"
           >
-            Clear Filters
+            {t('clearFilters')}
           </button>
         )}
       </form>
       
+      {/* Showing count with interpolation and pluralization */}
       <p className="products-count">
-        Showing {data?.products.length || 0} of {data?.total || 0} products
-        {searchQuery && <span> for "{searchQuery}"</span>}
-        {selectedCategory && <span> in "{selectedCategory}"</span>}
+        {/* INTERPOLATION: Showing {{count}} products */}
+        {t('showing', { count: data?.total || 0 })}
+        {' - '}
+        {/* PLURALIZATION: 1 product vs 2 products */}
+        {t('productCount', { count: data?.total || 0 })}
+        {searchQuery && <span> {t('searchFor', { query: searchQuery })}</span>}
+        {selectedCategory && <span> {t('inCategory', { category: selectedCategory })}</span>}
+      </p>
+
+      {/* TRANS COMPONENT USAGE: Embed formatting inside translation */}
+      <p className="info-text" style={{ marginBottom: '1rem', fontSize: '0.9rem', color: '#666' }}>
+        <Trans
+          i18nKey="products:searchInfo"
+          defaults="Use the <strong>search bar</strong> above to find products by name or <em>filter by category</em>."
+          components={{ strong: <strong />, em: <em /> }}
+        />
       </p>
       
-      <div className="products-grid-container">
-        {isFetching && data && (
-          <div className="products-loading-overlay">
-            <div className="loading-spinner"></div>
-            <span>Updating products...</span>
-          </div>
-        )}
-        
-        <div className="products-grid">
-          {data?.products.map((product) => (
-            <ProductCard 
-              key={product.id} 
-              product={product}
-              onAddToCart={handleAddToCart}
-            />
-          ))}
-        </div>
-      </div>
-      
-      {/* Pagination */}
-      {data && (
-        <div className="pagination-container">
-          <button 
-            className="pagination-button"
-            onClick={() => setPage(prev => prev - 1)}
-            disabled={page === 1 || isLoading}
-          >
-            Previous
-          </button>
-          
-          <div className="pagination-info">
-            <span className="page-info">Page {page}</span>
-            <span className="products-info">
-              Showing {(page - 1) * productsPerPage + 1}-{Math.min(page * productsPerPage, data.total)} of {data.total} products
-            </span>
-          </div>
-          
-          <button 
-            className="pagination-button"
-            onClick={() => setPage(prev => prev + 1)}
-            disabled={page * productsPerPage >= data.total || isLoading}
-          >
-            Next
-          </button>
-        </div>
-      )}
+      {/* PrimeReact DataTable with Sorting and Pagination */}
+      <DataTable 
+        value={data?.products || []}
+        loading={isLoading || isFetching}
+        paginator
+        rows={10}
+        rowsPerPageOptions={[5, 10, 20]}
+        sortField="title"
+        sortOrder={1}
+        tableStyle={{ minWidth: '50rem' }}
+        paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
+        currentPageReportTemplate={`Showing {first} to {last} of {totalRecords} products`}
+      >
+        <Column 
+          field="thumbnail" 
+          header={t('image')} 
+          body={imageBodyTemplate}
+          style={{ width: '100px' }}
+        />
+        <Column 
+          field="title" 
+          header={t('title')} 
+          sortable
+          style={{ minWidth: '200px' }}
+        />
+        <Column 
+          field="price" 
+          header={t('price')} 
+          body={priceBodyTemplate}
+          sortable
+          style={{ width: '120px' }}
+        />
+        <Column 
+          field="category" 
+          header={t('category')} 
+          sortable
+          style={{ width: '150px' }}
+        />
+        <Column 
+          header={t('actions')} 
+          body={actionBodyTemplate}
+          style={{ width: '150px' }}
+        />
+      </DataTable>
     </div>
   );
 };
