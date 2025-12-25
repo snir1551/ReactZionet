@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import './Home.css';
 
-function Home() {
+export const Home = () => {
   return (
     <div className="home-container">
       <h1 className="home-title">
@@ -61,6 +61,4 @@ function Home() {
       </div>
     </div>
   );
-}
-
-export default Home;
+};

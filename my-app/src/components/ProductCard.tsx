@@ -6,7 +6,7 @@ interface ProductCardProps {
   onAddToCart?: (product: Product) => void;
 }
 
-function ProductCard({ product, onAddToCart }: ProductCardProps) {
+export const ProductCard = ({ product, onAddToCart }: ProductCardProps) => {
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault(); // Prevent navigation
     if (onAddToCart) {
@@ -46,6 +46,4 @@ function ProductCard({ product, onAddToCart }: ProductCardProps) {
       </div>
     </Link>
   );
-}
-
-export default ProductCard;
+};

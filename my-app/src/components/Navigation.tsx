@@ -2,7 +2,7 @@ import { NavLink } from 'react-router';
 import { useCart } from '../hooks/useCart';
 import { useThemeStore } from '../stores/themeStore';
 
-function Navigation() {
+export const Navigation = () => {
   const { totalItems, toggleSidebar } = useCart();
   const { theme, toggleTheme } = useThemeStore();
 
@@ -44,6 +44,4 @@ function Navigation() {
       </button>
     </nav>
   );
-}
-
-export default Navigation;
+};
