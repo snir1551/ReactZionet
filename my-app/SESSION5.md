@@ -279,19 +279,10 @@ All E2E tests passing:
 
 **Total:** 17/17 tests passing ✨
 
-## 📸 Screenshots
-
-### Before
-![Before](paste-before-screenshot)
-
-### After
-![After](paste-after-screenshot)
 
 ## 🎥 Demo Video
 
-![Feature Demo](paste-gif-or-video)
 
-*Video shows: [Brief description]*
 
 ## 🔍 How to Test
 
