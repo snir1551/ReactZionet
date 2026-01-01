@@ -268,7 +268,7 @@ Brief description of what this PR does.
 ## ✅ Test Results
 All E2E tests passing:
 
-![Test Results](paste-screenshot-here)
+![E2E tests](image-8.png)
 
 ### Test Coverage
 - ✅ Navigation tests (1 test)
