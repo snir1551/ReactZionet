@@ -51,7 +51,7 @@ export const ProductsPage = () => {
       <img 
         src={product.thumbnail} 
         alt={product.title} 
-        style={{ width: '80px', height: '80px', objectFit: 'cover', borderRadius: '4px' }} 
+        className="product-thumbnail"
       />
     );
   };
