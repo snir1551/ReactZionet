@@ -5,6 +5,36 @@
   text-align: center;
 }
 
+/* Theme-based styling */
+:root[data-theme="light"] {
+  background-color: #f8f9fa;
+  color: #212529;
+}
+
+:root[data-theme="dark"] {
+  background-color: #1e1e2e;
+  color: #e0e0e0;
+}
+
+:root[data-theme="dark"] body {
+  background-color: #1e1e2e;
+  color: #e0e0e0;
+}
+
+:root[data-theme="dark"] .App {
+  color: #e0e0e0;
+}
+
+:root[data-theme="dark"] .products-container {
+  color: #e0e0e0;
+}
+
+:root[data-theme="dark"] h1,
+:root[data-theme="dark"] h2,
+:root[data-theme="dark"] h3 {
+  color: #e0e0e0;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;
