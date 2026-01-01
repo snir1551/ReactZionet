@@ -1,10 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
 import { useParams, Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { fetchProductById } from '../api/products';
 import { useCart } from '../hooks/useCart';
 import './ProductDetailPage.css';
 
 export const ProductDetailPage = () => {
+  const { t } = useTranslation('products');
+  const { t: tCommon } = useTranslation('common');
   const { addItem, openSidebar } = useCart();
   // Get the id from URL parameters
   const { id } = useParams<{ id: string }>();
@@ -30,10 +33,10 @@ export const ProductDetailPage = () => {
   if (isLoading) {
     return (
       <div className="product-detail-container">
-        <Link to="/products" className="back-link">← Back to Products</Link>
+        <Link to="/products" className="back-link">← {tCommon('backTo', { page: tCommon('products') })}</Link>
         <div className="loading">
           <div className="loading-spinner"></div>
-          <p>Loading product details...</p>
+          <p>{tCommon('loading')}</p>
         </div>
       </div>
     );
@@ -43,12 +46,12 @@ export const ProductDetailPage = () => {
   if (error) {
     return (
       <div className="product-detail-container">
-        <Link to="/products" className="back-link">← Back to Products</Link>
+        <Link to="/products" className="back-link">← {tCommon('backTo', { page: tCommon('products') })}</Link>
         <div className="error">
-          <h2>Something went wrong!</h2>
-          <p>Error: {error.message}</p>
+          <h2>{tCommon('somethingWentWrong')}</h2>
+          <p>{tCommon('error')}: {error.message}</p>
           <button onClick={() => window.location.reload()}>
-            Try Again
+            {tCommon('tryAgain')}
           </button>
         </div>
       </div>
@@ -59,7 +62,7 @@ export const ProductDetailPage = () => {
   if (!productId || isNaN(productId)) {
     return (
       <div className="product-detail-container">
-        <Link to="/products" className="back-link">← Back to Products</Link>
+        <Link to="/products" className="back-link">← {tCommon('backTo', { page: tCommon('products') })}</Link>
         <div className="error">
           <h2>Invalid Product ID</h2>
           <p>Please provide a valid product ID.</p>
@@ -71,7 +74,7 @@ export const ProductDetailPage = () => {
   // Show product details
   return (
     <div className="product-detail-container">
-      <Link to="/products" className="back-link">← Back to Products</Link>
+      <Link to="/products" className="back-link">← {tCommon('backTo', { page: tCommon('products') })}</Link>
       
       {product && (
         <div className="product-detail">
@@ -88,16 +91,16 @@ export const ProductDetailPage = () => {
           <div className="product-detail-info">
             <h1 className="product-detail-title">{product.title}</h1>
             <p className="product-detail-price">${product.price}</p>
-            <p className="product-detail-category">Category: {product.category}</p>
+            <p className="product-detail-category">{t('category')}: {product.category}</p>
             <div className="product-detail-description">
-              <h3>Description</h3>
+              <h3>{t('description')}</h3>
               <p>{product.description}</p>
             </div>
             <button
               className="add-to-cart-btn large"
               onClick={handleAddToCart}
             >
-              Add to Cart
+              {tCommon('addToCart')}
             </button>
           </div>
         </div>
