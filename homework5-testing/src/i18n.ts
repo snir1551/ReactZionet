@@ -1,0 +1,157 @@
+import i18n from 'i18next';
+import { initReactI18next } from 'react-i18next';
+
+const resources = {
+  en: {
+    common: {
+      products: 'Products',
+      about: 'About',
+      productDetail: 'Product Detail',
+      languageSwitch: 'Switch to Hebrew',
+      themeSwitch: 'Toggle Dark Mode',
+      loading: 'Loading...',
+      error: 'Error',
+      backToProducts: 'Back to Products',
+    },
+    about: {
+      title: 'About This React App',
+      visitTime: 'Visit Time',
+      pageViews: 'Page Views',
+      projectOverviewTitle: 'Project Overview',
+      projectOverviewText: 'This React application was created as part of the Zionet React Course - Homework 4. It demonstrates i18n internationalization and PrimeReact UI components integration.',
+      featuresTitle: 'Features Implemented',
+      feature1: 'Product Catalog - Browse and view product details with React Query',
+      feature2: 'Internationalization (i18n) - Multi-language support',
+      feature3: 'PrimeReact Components - Professional UI component library',
+      feature4: 'React Query - Data fetching and caching',
+      feature5: 'React Router - Client-side navigation',
+      feature6: 'TypeScript Support - Type-safe React development',
+      technologiesTitle: 'Technologies Used',
+      tech1Title: 'React 19',
+      tech1Desc: 'Component-based UI library',
+      tech2Title: 'TypeScript',
+      tech2Desc: 'Type-safe JavaScript',
+      tech3Title: 'Vite',
+      tech3Desc: 'Fast development server',
+      tech4Title: 'React Router',
+      tech4Desc: 'Client-side routing',
+      tech5Title: 'React Query',
+      tech5Desc: 'Data fetching library',
+      tech6Title: 'PrimeReact',
+      tech6Desc: 'UI component library',
+      tech7Title: 'i18next',
+      tech7Desc: 'Internationalization framework',
+      learningTitle: 'Learning Objectives Achieved',
+      learning1: 'Implementing multi-language support with i18next',
+      learning2: 'Using PrimeReact DataTable and UI components',
+      learning3: 'Data fetching with React Query',
+      learning4: 'Client-side routing with React Router',
+      learning5: 'TypeScript integration with React',
+      learning6: 'Component composition and reusability',
+    },
+    products: {
+      showing: 'Showing {{count}} products',
+      productCount_one: '{{count}} product',
+      productCount_other: '{{count}} products',
+      image: 'Image',
+      title: 'Title',
+      price: 'Price',
+      category: 'Category',
+      actions: 'Actions',
+      viewDetails: 'View Details',
+      brand: 'Brand',
+      stock: 'Stock',
+      rating: 'Rating',
+      description: 'Description',
+      noProductFound: 'Product not found',
+    },
+  },
+  he: {
+    common: {
+      products: 'מוצרים',
+      about: 'אודות',
+      productDetail: 'פרטי מוצר',
+      languageSwitch: 'עבור לאנגלית',
+      themeSwitch: 'החלף למצב כהה',
+      loading: 'טוען...',
+      error: 'שגיאה',
+      backToProducts: 'חזור למוצרים',
+    },
+    about: {
+      title: 'אודות האפליקציה',
+      visitTime: 'זמן ביקור',
+      pageViews: 'צפיות בעמוד',
+      projectOverviewTitle: 'סקירת הפרויקט',
+      projectOverviewText: 'אפליקציית React זו נוצרה כחלק מקורס React של Zionet - תרגיל 4. היא מדגימה בינאום (i18n) ואינטגרציה של רכיבי PrimeReact.',
+      featuresTitle: 'תכונות שיושמו',
+      feature1: 'קטלוג מוצרים - עיון וצפייה בפרטי מוצרים עם React Query',
+      feature2: 'בינאום (i18n) - תמיכה בריבוי שפות',
+      feature3: 'רכיבי PrimeReact - ספריית רכיבי UI מקצועית',
+      feature4: 'React Query - טעינה ושמירה במטמון של נתונים',
+      feature5: 'React Router - ניווט בצד הלקוח',
+      feature6: 'תמיכה ב-TypeScript - פיתוח React בטוח מבחינת טיפוסים',
+      technologiesTitle: 'טכנולוגיות בשימוש',
+      tech1Title: 'React 19',
+      tech1Desc: 'ספריית UI מבוססת רכיבים',
+      tech2Title: 'TypeScript',
+      tech2Desc: 'JavaScript בטוח מבחינת טיפוסים',
+      tech3Title: 'Vite',
+      tech3Desc: 'שרת פיתוח מהיר',
+      tech4Title: 'React Router',
+      tech4Desc: 'ניתוב בצד הלקוח',
+      tech5Title: 'React Query',
+      tech5Desc: 'ספריית טעינת נתונים',
+      tech6Title: 'PrimeReact',
+      tech6Desc: 'ספריית רכיבי UI',
+      tech7Title: 'i18next',
+      tech7Desc: 'מסגרת לבינאום',
+      learningTitle: 'יעדי למידה שהושגו',
+      learning1: 'יישום תמיכה בריבוי שפות עם i18next',
+      learning2: 'שימוש ב-DataTable של PrimeReact ורכיבי UI',
+      learning3: 'טעינת נתונים עם React Query',
+      learning4: 'ניתוב בצד הלקוח עם React Router',
+      learning5: 'אינטגרציה של TypeScript עם React',
+      learning6: 'הרכבת רכיבים ושימוש חוזר',
+    },
+    products: {
+      showing: 'מציג {{count}} מוצרים',
+      productCount_one: 'מוצר {{count}}',
+      productCount_other: '{{count}} מוצרים',
+      image: 'תמונה',
+      title: 'כותרת',
+      price: 'מחיר',
+      category: 'קטגוריה',
+      actions: 'פעולות',
+      viewDetails: 'צפה בפרטים',
+      brand: 'מותג',
+      stock: 'מלאי',
+      rating: 'דירוג',
+      description: 'תיאור',
+      noProductFound: 'מוצר לא נמצא',
+    },
+  },
+};
+
+i18n
+  .use(initReactI18next)
+  .init({
+    resources,
+    lng: localStorage.getItem('app_lang') || 'en',
+    fallbackLng: 'en',
+    ns: ['common', 'products', 'about'],
+    defaultNS: 'common',
+    interpolation: {
+      escapeValue: false,
+    },
+  });
+
+i18n.on('languageChanged', (lng) => {
+  localStorage.setItem('app_lang', lng);
+  document.documentElement.dir = lng === 'he' ? 'rtl' : 'ltr';
+  document.documentElement.lang = lng;
+});
+
+document.documentElement.dir = i18n.language === 'he' ? 'rtl' : 'ltr';
+document.documentElement.lang = i18n.language;
+
+export default i18n;
