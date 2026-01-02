@@ -28,6 +28,14 @@ export function Navigation() {
         {t('common:products')}
       </Link>
 
+      <Link to="/about" style={{ 
+        textDecoration: 'none', 
+        color: 'var(--text-color)',
+        fontWeight: 'bold',
+      }}>
+        {t('common:about')}
+      </Link>
+
       <div style={{
         marginInlineStart: 'auto',
         display: 'flex',
