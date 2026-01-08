@@ -49,6 +49,7 @@ const filterSensitiveData = (data: Partial<FormData>): Partial<FormData> => {
 
 export const FormPage: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const hasSubmittedRef = useRef(false);
   const debounceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   
   const {
@@ -56,7 +57,8 @@ export const FormPage: React.FC = () => {
     handleSubmit,
     watch,
     setValue,
-    formState: { errors, isValid }
+    getValues,
+    formState: { errors }
   } = useForm<FormData>({
     resolver: zodResolver(formSchema),
     mode: 'onBlur',
@@ -77,15 +79,33 @@ export const FormPage: React.FC = () => {
     }
   });
 
+  // Watch all form values to determine if form is complete
+  const formValues = watch();
+  
+  // Check if form is complete and valid
+  const isFormValid = 
+    Object.keys(errors).length === 0 &&
+    formValues.firstName?.trim() &&
+    formValues.lastName?.trim() &&
+    formValues.email?.trim() &&
+    formValues.password &&
+    formValues.confirmPassword &&
+    formValues.age >= 18 &&
+    formValues.country &&
+    formValues.gender &&
+    formValues.interests.length > 0 &&
+    formValues.bio?.trim() &&
+    formValues.terms === true;
+
   // Load data from localStorage on mount
   useEffect(() => {
     try {
       const savedData = localStorage.getItem(STORAGE_KEY);
       if (savedData) {
         const parsed = JSON.parse(savedData) as Partial<FormData>;
-        Object.entries(parsed).forEach(([key, value]) => {
-          if (!SENSITIVE_FIELDS.includes(key as keyof FormData)) {
-            setValue(key as keyof FormData, value as any, { shouldValidate: false });
+        (Object.entries(parsed) as [keyof FormData, FormData[keyof FormData]][]).forEach(([key, value]) => {
+          if (!SENSITIVE_FIELDS.includes(key)) {
+            setValue(key, value, { shouldValidate: false });
           }
         });
       }
@@ -95,8 +115,12 @@ export const FormPage: React.FC = () => {
   }, [setValue]);
 
   // Save non-sensitive data to localStorage on change with debouncing
-  const formValues = watch();
   useEffect(() => {
+    // Don't save if currently submitting or has already submitted
+    if (isSubmitting || hasSubmittedRef.current) {
+      return;
+    }
+    
     // Clear previous timer
     if (debounceTimerRef.current) {
       clearTimeout(debounceTimerRef.current);
@@ -118,9 +142,19 @@ export const FormPage: React.FC = () => {
         clearTimeout(debounceTimerRef.current);
       }
     };
-  }, [formValues]);
+  }, [formValues, isSubmitting]);
 
   const onSubmit = async (data: FormData) => {
+    // Mark as submitted to prevent further localStorage saves
+    hasSubmittedRef.current = true;
+    
+    // Clear any pending debounce timer and localStorage immediately
+    if (debounceTimerRef.current) {
+      clearTimeout(debounceTimerRef.current);
+      debounceTimerRef.current = null;
+    }
+    localStorage.removeItem(STORAGE_KEY);
+    
     setIsSubmitting(true);
     
     try {
@@ -134,9 +168,6 @@ export const FormPage: React.FC = () => {
         password: '***HIDDEN***',
         confirmPassword: '***HIDDEN***'
       });
-      
-      // Clear localStorage after successful submission
-      localStorage.removeItem(STORAGE_KEY);
       
       alert('Form submitted successfully! Check the console for details.');
     } catch (error) {
@@ -259,7 +290,12 @@ export const FormPage: React.FC = () => {
                 <input
                   id="confirmPassword"
                   type="password"
-                  {...register('confirmPassword')}
+                  {...register('confirmPassword', {
+                    validate: (value) => {
+                      const password = getValues('password');
+                      return value === password || "Passwords don't match";
+                    }
+                  })}
                   className={errors.confirmPassword ? 'error' : ''}
                   aria-invalid={errors.confirmPassword ? 'true' : 'false'}
                   aria-describedby={errors.confirmPassword ? 'confirmPassword-error' : undefined}
@@ -508,7 +544,7 @@ export const FormPage: React.FC = () => {
           <div className="form-actions">
             <button
               type="submit"
-              disabled={!isValid || isSubmitting}
+              disabled={!isFormValid || isSubmitting}
               className="submit-button"
               aria-busy={isSubmitting}
             >
