@@ -24,6 +24,9 @@ export const Navigation = () => {
       <NavLink to="/register" className="nav-link">
         {t('register')}
       </NavLink>
+      <NavLink to="/form" className="nav-link">
+        {t('form')}
+      </NavLink>
       <NavLink to="/products" className="nav-link">
         {t('products')}
       </NavLink>
