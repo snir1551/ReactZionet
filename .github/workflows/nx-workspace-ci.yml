@@ -19,11 +19,5 @@ jobs:
 
       - run: npm ci
 
-      - name: Lint affected projects
+      - name: Run affected lint, test, and build
         run: npm run ci
-
-      - name: Build affected projects
-        run: npx nx affected -t build --base=origin/main --head=HEAD
-
-      - name: Test affected projects
-        run: npx nx affected -t test --base=origin/main --head=HEAD
