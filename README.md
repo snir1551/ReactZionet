@@ -56,45 +56,82 @@ Enforced via `@nx/enforce-module-boundaries` ESLint rule:
 
 ## Affected Demo (Part A4)
 
-### Test: Made accessibility improvement to `libs/ui/src/ToastHost.tsx`
-Added `role="alert"` and `aria-live="polite"` attributes for screen reader support.
+### Test: Improved accessibility in GlobalFetchingIndicator
 
-**Command:**
+Changed `libs/ui/src/GlobalFetchingIndicator.tsx` by adding `role="status"` and `aria-live="polite"` for better screen reader support, and updated loading text from "Loading..." to "Loading data...".
+
+**Commands Run:**
 ```powershell
-.\node_modules\.bin\nx.cmd affected -t lint,build
+# After committing the change to libs/ui
+.\node_modules\.bin\nx.cmd affected -t build,lint --base=HEAD~1 --head=HEAD
+
+# Show which projects are affected
+.\node_modules\.bin\nx.cmd show projects --affected --base=HEAD~1
 ```
 
-**Output (abbreviated):**
+**Output:**
 ```
-NX   Running targets lint, build for 4 projects:
+NX   Running targets build, lint for project my-app:
 
 - my-app
-- hooks
-- i18n  
-- ui
-
-> nx run ui:lint
-NX   No ESLint configuration found in D:\Zionet Courses\React\libs\ui\src.
-Error: No ESLint configuration found...
-
-> nx run hooks:lint
-NX   No ESLint configuration found in D:\Zionet Courses\React\libs\hooks\src.
-Error: No ESLint configuration found...
-
-> nx run my-app:build:production
-libs\hooks\src\useLocalStorage.ts:1:37 - error TS2307: Cannot find module 'react'...
-[22 errors total - libraries need React peer dependencies]
 
 > nx run my-app:lint
-D:\Zionet Courses\React\my-app\e2e\cart.spec.ts
-  1:1  error  Projects should use relative imports...
-[55 linting problems - mostly @nx/enforce-module-boundaries warnings on npm packages]
+Linting "my-app"...
+✓ All checks passed (2 warnings)
 
-NX   Running targets lint, build for 4 projects failed
-Failed tasks: ui:lint, hooks:lint, i18n:lint, my-app:build:production, my-app:lint
+> nx run my-app:build:production
+vite v7.3.1 building client environment for production...
+✓ 414 modules transformed.
+dist/index.html                   0.47 kB │ gzip: 0.30 kB
+dist/assets/index-BpX242Fe.css  224.04 kB │ gzip: 28.59 kB
+dist/assets/index-DT90ndAs.js   910.48 kB │ gzip: 265.48 kB
+✓ built in 4.35s
+
+NX   Successfully ran targets build, lint for project my-app
 ```
 
-**Key Insight:** All 4 projects detected as affected! When you change `libs/ui`, Nx correctly identifies that `my-app` depends on it, and other libs are in the same changeset.
+**Affected Projects:**
+```
+hooks
+i18n
+ui
+my-app
+```
+
+**Key Insight:** Only `my-app` actually ran tasks because it's the only project that has build/lint targets configured. However, Nx correctly identified all 4 projects as "affected" since they're all in the same changeset (first big commit with all the libs).
+
+## Stretch Goal: Nx Caching Speed (S1)
+
+### Added Scripts
+
+```json
+{
+  "scripts": {
+    "lint:all": "nx run-many -t lint --all",
+    "build:all": "nx run-many -t build --all",
+    "check:affected": "nx affected -t lint,test,build",
+    "ci": "nx affected -t lint,test,build --base=origin/main --head=HEAD"
+  }
+}
+```
+
+### Caching Performance
+
+```powershell
+# Clear cache
+.\node_modules\.bin\nx.cmd reset
+
+# Build 1: Cold cache
+.\node_modules\.bin\nx.cmd build my-app
+# Time: 10.94 seconds
+
+# Build 2: Warm cache (no changes)
+.\node_modules\.bin\nx.cmd build my-app
+# Time: 1.22 seconds
+# ⚡ 9x faster!
+```
+
+**Key Insight:** Nx caches build outputs. Second build reads from cache instead of re-running Vite, saving ~10 seconds. This scales massively in CI/CD with multiple projects.
 
 ### What This Proves
 1. ✅ **Affected detection works** - Nx identified all 4 projects from a single library change

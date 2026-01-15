@@ -9,7 +9,11 @@
     "build": "node_modules\\.bin\\nx.cmd build",
     "lint": "node_modules\\.bin\\nx.cmd lint",
     "test": "node_modules\\.bin\\nx.cmd test",
-    "graph": "node_modules\\.bin\\nx.cmd graph"
+    "graph": "node_modules\\.bin\\nx.cmd graph",
+    "lint:all": "node_modules\\.bin\\nx.cmd run-many -t lint --all",
+    "build:all": "node_modules\\.bin\\nx.cmd run-many -t build --all",
+    "check:affected": "node_modules\\.bin\\nx.cmd affected -t lint,test,build",
+    "ci": "node_modules\\.bin\\nx.cmd affected -t lint,test,build --base=origin/main --head=HEAD"
   },
   "repository": {
     "type": "git",
