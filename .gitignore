@@ -5,20 +5,23 @@
 
 # Dependencies
 node_modules/
-package-lock.json
 
 # Build outputs
 dist/
 build/
 *.tsbuildinfo
+my-app/dist/
 
 # Environment
 .env
 .env.local
+.env.*.local
 
 # IDE
 .vscode/
 .idea/
+*.swp
+*.swo
 
 # OS
 .DS_Store
@@ -26,9 +29,20 @@ Thumbs.db
 
 # Test coverage
 coverage/
+playwright-report/
+test-results/
 
 # Logs
 *.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
+
+# Temporary files
+*.tmp
+.temp/
+affected-*.txt
+print-affected-output.txt
+show-affected-output.txt
+lint-broken*.txt
