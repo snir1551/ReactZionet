@@ -4,6 +4,7 @@
   "sourceRoot": "my-app/src",
   "projectType": "application",
   "tags": ["type:app"],
+  "implicitDependencies": ["ui", "hooks", "i18n"],
   "targets": {
     "serve": {
       "executor": "@nx/vite:dev-server",
