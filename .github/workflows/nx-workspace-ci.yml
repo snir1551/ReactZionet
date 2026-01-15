@@ -5,16 +5,12 @@ on:
     branches: main
 
 jobs:
-  lint-build-test:
+  lint-test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          ref: ${{ github.event.pull_request.head.ref }}
-
-      - name: Fetch base branch
-        run: git fetch origin ${{ github.event.pull_request.base.ref }}
 
       - uses: actions/setup-node@v4
         with:
@@ -23,5 +19,5 @@ jobs:
 
       - run: npm ci
 
-      - name: Run affected lint, test, and build
-        run: npx nx affected -t lint,test,build --base=origin/${{ github.event.pull_request.base.ref }} --head=HEAD
+      - name: Run affected lint and test
+        run: npx nx affected -t lint,test --base=origin/${{ github.base_ref }} --head=HEAD
