@@ -2,37 +2,54 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
+import { useTranslation } from 'react-i18next';
+import { useThemeStore } from '../stores/themeStore';
 import './FormPage.css';
 
-// Validation schema
-const formSchema = z.object({
-  firstName: z.string().min(2, 'First name must be at least 2 characters'),
-  lastName: z.string().min(2, 'Last name must be at least 2 characters'),
-  email: z.email('Invalid email address'),
-  password: z.string().min(8, 'Password must be at least 8 characters')
-    .regex(/[A-Z]/, 'Password must contain at least one uppercase letter')
-    .regex(/[a-z]/, 'Password must contain at least one lowercase letter')
-    .regex(/[0-9]/, 'Password must contain at least one number'),
+// Validation schema - will need to use translation in error messages
+const createFormSchema = (t: (key: string) => string) => z.object({
+  firstName: z.string().min(2, t('form:errors.firstNameMin')),
+  lastName: z.string().min(2, t('form:errors.lastNameMin')),
+  email: z.email(t('form:errors.emailInvalid')),
+  password: z.string().min(8, t('form:errors.passwordMin'))
+    .regex(/[A-Z]/, t('form:errors.passwordUppercase'))
+    .regex(/[a-z]/, t('form:errors.passwordLowercase'))
+    .regex(/[0-9]/, t('form:errors.passwordNumber')),
   confirmPassword: z.string(),
-  age: z.number().min(18, 'You must be at least 18 years old').max(100),
-  country: z.string().min(1, 'Please select a country'),
+  age: z.number().min(18, t('form:errors.ageMin')).max(100, t('form:errors.ageMax')),
+  country: z.string().min(1, t('form:errors.countryRequired')),
   gender: z.enum(['male', 'female', 'other']).optional(),
-  interests: z.array(z.string()).min(1, 'Please select at least one interest'),
+  interests: z.array(z.string()).min(1, t('form:errors.interestsMin')),
   experience: z.number().min(0).max(10),
-  bio: z.string().min(10, 'Bio must be at least 10 characters').max(500, 'Bio must be at most 500 characters'),
+  bio: z.string().min(10, t('form:errors.bioMin')).max(500, t('form:errors.bioMax')),
   newsletter: z.boolean(),
   terms: z.boolean().refine(val => val === true, {
-    message: 'You must accept the terms and conditions'
+    message: t('form:errors.termsRequired')
   })
 }).refine(data => data.password === data.confirmPassword, {
-  message: "Passwords don't match",
+  message: t('form:errors.passwordMismatch'),
   path: ['confirmPassword']
 }).refine(data => data.gender !== undefined, {
-  message: "Please select a gender",
+  message: t('form:errors.genderRequired'),
   path: ['gender']
 });
 
-type FormData = z.infer<typeof formSchema>;
+// Define FormData type from a sample schema
+type FormData = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  age: number;
+  country: string;
+  gender?: 'male' | 'female' | 'other';
+  interests: string[];
+  experience: number;
+  bio: string;
+  newsletter: boolean;
+  terms: boolean;
+};
 
 const STORAGE_KEY = 'form-data';
 const SENSITIVE_FIELDS: Array<keyof FormData> = ['password', 'confirmPassword'];
@@ -48,9 +65,13 @@ const filterSensitiveData = (data: Partial<FormData>): Partial<FormData> => {
 };
 
 export const FormPage: React.FC = () => {
+  const { t } = useTranslation(['form', 'common']);
+  const { theme } = useThemeStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const hasSubmittedRef = useRef(false);
   const debounceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  
+  const formSchema = createFormSchema(t);
   
   const {
     register,
@@ -169,10 +190,10 @@ export const FormPage: React.FC = () => {
         confirmPassword: '***HIDDEN***'
       });
       
-      alert('Form submitted successfully! Check the console for details.');
+      alert(t('form:successMessage'));
     } catch (error) {
       console.error('Submission error:', error);
-      alert('An error occurred during submission. Please try again.');
+      alert(t('form:errorMessage'));
     } finally {
       setIsSubmitting(false);
     }
@@ -181,20 +202,20 @@ export const FormPage: React.FC = () => {
   const experienceValue = watch('experience');
 
   return (
-    <div className="form-page">
+    <div className={`form-page theme-${theme}`}>
       <div className="form-container">
-        <h1>User Registration Form</h1>
-        <p className="form-description">Please fill out all required fields</p>
+        <h1>{t('form:title')}</h1>
+        <p className="form-description">{t('form:description')}</p>
 
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
           {/* Personal Information Section */}
           <fieldset className="form-section">
-            <legend>Personal Information</legend>
+            <legend>{t('form:personalInfo')}</legend>
 
             <div className="form-row">
               <div className="form-group">
                 <label htmlFor="firstName">
-                  First Name <span className="required">*</span>
+                  {t('form:firstName')} <span className="required">*</span>
                 </label>
                 <input
                   id="firstName"
@@ -215,7 +236,7 @@ export const FormPage: React.FC = () => {
 
               <div className="form-group">
                 <label htmlFor="lastName">
-                  Last Name <span className="required">*</span>
+                  {t('form:lastName')} <span className="required">*</span>
                 </label>
                 <input
                   id="lastName"
@@ -237,7 +258,7 @@ export const FormPage: React.FC = () => {
 
             <div className="form-group">
               <label htmlFor="email">
-                Email <span className="required">*</span>
+                {t('form:email')} <span className="required">*</span>
               </label>
               <input
                 id="email"
@@ -260,7 +281,7 @@ export const FormPage: React.FC = () => {
             <div className="form-row">
               <div className="form-group">
                 <label htmlFor="password">
-                  Password <span className="required">*</span>
+                  {t('form:password')} <span className="required">*</span>
                 </label>
                 <input
                   id="password"
@@ -272,7 +293,7 @@ export const FormPage: React.FC = () => {
                   autoComplete="new-password"
                 />
                 <div className="field-hint" id="password-hint">
-                  Must be 8+ characters with uppercase, lowercase, and number
+                  {t('form:passwordHint')}
                 </div>
                 <div className="error-container" role="alert">
                   {errors.password && (
@@ -285,7 +306,7 @@ export const FormPage: React.FC = () => {
 
               <div className="form-group">
                 <label htmlFor="confirmPassword">
-                  Confirm Password <span className="required">*</span>
+                  {t('form:confirmPassword')} <span className="required">*</span>
                 </label>
                 <input
                   id="confirmPassword"
@@ -314,7 +335,7 @@ export const FormPage: React.FC = () => {
             <div className="form-row">
               <div className="form-group">
                 <label htmlFor="age">
-                  Age <span className="required">*</span>
+                  {t('form:age')} <span className="required">*</span>
                 </label>
                 <input
                   id="age"
@@ -337,7 +358,7 @@ export const FormPage: React.FC = () => {
 
               <div className="form-group">
                 <label htmlFor="country">
-                  Country <span className="required">*</span>
+                  {t('form:country')} <span className="required">*</span>
                 </label>
                 <select
                   id="country"
@@ -346,15 +367,15 @@ export const FormPage: React.FC = () => {
                   aria-invalid={errors.country ? 'true' : 'false'}
                   aria-describedby={errors.country ? 'country-error' : undefined}
                 >
-                  <option value="">Select a country</option>
-                  <option value="us">United States</option>
-                  <option value="uk">United Kingdom</option>
-                  <option value="ca">Canada</option>
-                  <option value="au">Australia</option>
-                  <option value="il">Israel</option>
-                  <option value="de">Germany</option>
-                  <option value="fr">France</option>
-                  <option value="other">Other</option>
+                  <option value="">{t('form:selectCountry')}</option>
+                  <option value="us">{t('form:countries.us')}</option>
+                  <option value="uk">{t('form:countries.uk')}</option>
+                  <option value="ca">{t('form:countries.ca')}</option>
+                  <option value="au">{t('form:countries.au')}</option>
+                  <option value="il">{t('form:countries.il')}</option>
+                  <option value="de">{t('form:countries.de')}</option>
+                  <option value="fr">{t('form:countries.fr')}</option>
+                  <option value="other">{t('form:countries.other')}</option>
                 </select>
                 <div className="error-container" role="alert">
                   {errors.country && (
@@ -370,7 +391,7 @@ export const FormPage: React.FC = () => {
           {/* Gender Section with Custom Radio Buttons */}
           <fieldset className="form-section">
             <legend>
-              Gender <span className="required">*</span>
+              {t('form:genderSection')} <span className="required">*</span>
             </legend>
             
             <div className="radio-group" role="radiogroup" aria-describedby={errors.gender ? 'gender-error' : undefined}>
@@ -382,7 +403,7 @@ export const FormPage: React.FC = () => {
                   className="visually-hidden"
                 />
                 <span className="radio-custom" aria-hidden="true"></span>
-                <span className="radio-label">Male</span>
+                <span className="radio-label">{t('form:gender.male')}</span>
               </label>
 
               <label className="custom-radio">
@@ -393,7 +414,7 @@ export const FormPage: React.FC = () => {
                   className="visually-hidden"
                 />
                 <span className="radio-custom" aria-hidden="true"></span>
-                <span className="radio-label">Female</span>
+                <span className="radio-label">{t('form:gender.female')}</span>
               </label>
 
               <label className="custom-radio">
@@ -404,7 +425,7 @@ export const FormPage: React.FC = () => {
                   className="visually-hidden"
                 />
                 <span className="radio-custom" aria-hidden="true"></span>
-                <span className="radio-label">Other</span>
+                <span className="radio-label">{t('form:gender.other')}</span>
               </label>
             </div>
 
@@ -420,20 +441,20 @@ export const FormPage: React.FC = () => {
           {/* Interests Section with Custom Checkboxes */}
           <fieldset className="form-section">
             <legend>
-              Interests <span className="required">*</span>
+              {t('form:interestsSection')} <span className="required">*</span>
             </legend>
 
             <div className="checkbox-group" role="group" aria-describedby={errors.interests ? 'interests-error' : undefined}>
-              {['Programming', 'Design', 'Marketing', 'Data Science', 'DevOps'].map((interest) => (
-                <label key={interest} className="custom-checkbox">
+              {[{key: 'programming', value: 'programming'}, {key: 'design', value: 'design'}, {key: 'marketing', value: 'marketing'}, {key: 'dataScience', value: 'data-science'}, {key: 'devops', value: 'devops'}].map((interest) => (
+                <label key={interest.value} className="custom-checkbox">
                   <input
                     type="checkbox"
-                    value={interest.toLowerCase().replace(' ', '-')}
+                    value={interest.value}
                     {...register('interests')}
                     className="visually-hidden"
                   />
                   <span className="checkbox-custom" aria-hidden="true"></span>
-                  <span className="checkbox-label">{interest}</span>
+                  <span className="checkbox-label">{t(`form:interests.${interest.key}`)}</span>
                 </label>
               ))}
             </div>
@@ -449,11 +470,11 @@ export const FormPage: React.FC = () => {
 
           {/* Experience Section with Range Slider */}
           <fieldset className="form-section">
-            <legend>Years of Experience</legend>
+            <legend>{t('form:experienceSection')}</legend>
 
             <div className="form-group">
               <label htmlFor="experience">
-                Experience: <span className="experience-value">{experienceValue} years</span>
+                {t('form:experience')}: <span className="experience-value">{t('form:experienceYears', { count: experienceValue })}</span>
               </label>
               <input
                 id="experience"
@@ -466,22 +487,22 @@ export const FormPage: React.FC = () => {
                 aria-valuemin={0}
                 aria-valuemax={10}
                 aria-valuenow={experienceValue}
-                aria-valuetext={`${experienceValue} years`}
+                aria-valuetext={t('form:experienceYears', { count: experienceValue })}
               />
               <div className="range-labels">
-                <span>0 years</span>
-                <span>10+ years</span>
+                <span>{t('form:rangeMin')}</span>
+                <span>{t('form:rangeMax')}</span>
               </div>
             </div>
           </fieldset>
 
           {/* Bio Section with Textarea */}
           <fieldset className="form-section">
-            <legend>About You</legend>
+            <legend>{t('form:aboutSection')}</legend>
 
             <div className="form-group">
               <label htmlFor="bio">
-                Bio <span className="required">*</span>
+                {t('form:bio')} <span className="required">*</span>
               </label>
               <textarea
                 id="bio"
@@ -490,10 +511,10 @@ export const FormPage: React.FC = () => {
                 className={errors.bio ? 'error' : ''}
                 aria-invalid={errors.bio ? 'true' : 'false'}
                 aria-describedby={errors.bio ? 'bio-error bio-hint' : 'bio-hint'}
-                placeholder="Tell us about yourself..."
+                placeholder={t('form:bioPlaceholder')}
               />
               <div className="field-hint" id="bio-hint">
-                Write at least 10 characters (max 500)
+                {t('form:bioHint')}
               </div>
               <div className="error-container" role="alert">
                 {errors.bio && (
@@ -507,7 +528,7 @@ export const FormPage: React.FC = () => {
 
           {/* Newsletter and Terms Section */}
           <fieldset className="form-section">
-            <legend>Preferences</legend>
+            <legend>{t('form:preferencesSection')}</legend>
 
             <label className="custom-checkbox">
               <input
@@ -516,7 +537,7 @@ export const FormPage: React.FC = () => {
                 className="visually-hidden"
               />
               <span className="checkbox-custom" aria-hidden="true"></span>
-              <span className="checkbox-label">Subscribe to newsletter</span>
+              <span className="checkbox-label">{t('form:newsletter')}</span>
             </label>
 
             <label className="custom-checkbox">
@@ -527,7 +548,7 @@ export const FormPage: React.FC = () => {
               />
               <span className="checkbox-custom" aria-hidden="true"></span>
               <span className="checkbox-label">
-                I accept the terms and conditions <span className="required">*</span>
+                {t('form:terms')} <span className="required">*</span>
               </span>
             </label>
 
@@ -548,7 +569,7 @@ export const FormPage: React.FC = () => {
               className="submit-button"
               aria-busy={isSubmitting}
             >
-              {isSubmitting ? 'Submitting...' : 'Submit Form'}
+              {isSubmitting ? t('form:submitting') : t('form:submit')}
             </button>
           </div>
         </form>

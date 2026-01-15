@@ -4,6 +4,34 @@
   max-width: 800px;
   margin: 0 auto;
   animation: fadeIn 0.3s ease-in;
+  
+  /* Theme variables - light mode (default) */
+  --form-bg: white;
+  --form-text: #333;
+  --form-text-secondary: #666;
+  --form-border: #e0e0e0;
+  --form-input-bg: white;
+  --form-input-border: #ddd;
+  --form-input-focus: #4CAF50;
+  --form-shadow: rgba(0, 0, 0, 0.1);
+  --form-error: #d32f2f;
+  --form-success: #4CAF50;
+  --form-disabled: #ccc;
+}
+
+/* Dark theme */
+.form-page.theme-dark {
+  --form-bg: #1e1e1e;
+  --form-text: #e0e0e0;
+  --form-text-secondary: #b0b0b0;
+  --form-border: #444;
+  --form-input-bg: #2d2d2d;
+  --form-input-border: #555;
+  --form-input-focus: #66BB6A;
+  --form-shadow: rgba(0, 0, 0, 0.3);
+  --form-error: #ef5350;
+  --form-success: #66BB6A;
+  --form-disabled: #666;
 }
 
 @keyframes fadeIn {
@@ -18,26 +46,26 @@
 }
 
 .form-container {
-  background: white;
+  background: var(--form-bg);
   padding: 2rem;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px var(--form-shadow);
 }
 
 .form-container h1 {
   margin: 0 0 0.5rem;
-  color: #333;
+  color: var(--form-text);
   font-size: 2rem;
 }
 
 .form-description {
   margin: 0 0 2rem;
-  color: #666;
+  color: var(--form-text-secondary);
 }
 
 /* Form sections */
 .form-section {
-  border: 1px solid #e0e0e0;
+  border: 1px solid var(--form-border);
   border-radius: 6px;
   padding: 1.5rem;
   margin-bottom: 1.5rem;
@@ -46,7 +74,7 @@
 .form-section legend {
   font-weight: 600;
   font-size: 1.1rem;
-  color: #333;
+  color: var(--form-text);
   padding: 0 0.5rem;
 }
 
@@ -67,12 +95,12 @@
 label {
   font-weight: 500;
   margin-bottom: 0.5rem;
-  color: #333;
+  color: var(--form-text);
   display: block;
 }
 
 .required {
-  color: #d32f2f;
+  color: var(--form-error);
 }
 
 /* Input styles */
@@ -83,13 +111,15 @@ input[type="number"],
 select,
 textarea {
   padding: 0.75rem;
-  border: 2px solid #ddd;
+  border: 2px solid var(--form-input-border);
   border-radius: 4px;
   font-size: 1rem;
   font-family: inherit;
   transition: all 0.2s ease;
   width: 100%;
   box-sizing: border-box;
+  background-color: var(--form-input-bg);
+  color: var(--form-text);
 }
 
 /* Focus styles - visible and no layout shift */
@@ -99,23 +129,23 @@ input[type="password"]:focus,
 input[type="number"]:focus,
 select:focus,
 textarea:focus {
-  outline: 3px solid #4CAF50;
+  outline: 3px solid var(--form-input-focus);
   outline-offset: 0px;
-  border-color: #4CAF50;
+  border-color: var(--form-input-focus);
 }
 
 /* Error state */
 input.error,
 select.error,
 textarea.error {
-  border-color: #d32f2f;
+  border-color: var(--form-error);
 }
 
 input.error:focus,
 select.error:focus,
 textarea.error:focus {
-  outline-color: #d32f2f;
-  border-color: #d32f2f;
+  outline-color: var(--form-error);
+  border-color: var(--form-error);
 }
 
 /* Error container - fixed height to prevent layout shift */
@@ -128,7 +158,7 @@ textarea.error:focus {
 /* Error message with animation */
 .error-message {
   display: inline-block;
-  color: #d32f2f;
+  color: var(--form-error);
   font-size: 0.875rem;
   line-height: 1.5;
   animation: slideDown 0.2s ease-out;
@@ -149,7 +179,7 @@ textarea.error:focus {
 /* Field hints */
 .field-hint {
   font-size: 0.875rem;
-  color: #666;
+  color: var(--form-text-secondary);
   margin-top: 0.25rem;
 }
 
@@ -158,7 +188,7 @@ textarea.error:focus {
   width: 100%;
   height: 8px;
   border-radius: 4px;
-  background: #ddd;
+  background: var(--form-input-border);
   outline: none;
   margin: 0.5rem 0;
   cursor: pointer;
@@ -169,32 +199,32 @@ textarea.error:focus {
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: #4CAF50;
+  background: var(--form-success);
   cursor: pointer;
   transition: all 0.2s ease;
-  border: 2px solid white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  border: 2px solid var(--form-bg);
+  box-shadow: 0 2px 4px var(--form-shadow);
 }
 
 .range-slider::-moz-range-thumb {
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: #4CAF50;
+  background: var(--form-success);
   cursor: pointer;
   transition: all 0.2s ease;
-  border: 2px solid white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  border: 2px solid var(--form-bg);
+  box-shadow: 0 2px 4px var(--form-shadow);
 }
 
 .range-slider:focus::-webkit-slider-thumb {
-  outline: 3px solid #4CAF50;
+  outline: 3px solid var(--form-input-focus);
   outline-offset: 2px;
   transform: scale(1.1);
 }
 
 .range-slider:focus::-moz-range-thumb {
-  outline: 3px solid #4CAF50;
+  outline: 3px solid var(--form-input-focus);
   outline-offset: 2px;
   transform: scale(1.1);
 }
@@ -203,12 +233,12 @@ textarea.error:focus {
   display: flex;
   justify-content: space-between;
   font-size: 0.875rem;
-  color: #666;
+  color: var(--form-text-secondary);
 }
 
 .experience-value {
   font-weight: 600;
-  color: #4CAF50;
+  color: var(--form-success);
 }
 
 /* Visually hidden (for accessibility) */
@@ -242,12 +272,13 @@ textarea.error:focus {
 .radio-custom {
   width: 20px;
   height: 20px;
-  border: 2px solid #ddd;
+  border: 2px solid var(--form-input-border);
   border-radius: 50%;
   margin-right: 0.5rem;
   position: relative;
   transition: all 0.2s ease;
   flex-shrink: 0;
+  background-color: var(--form-input-bg);
 }
 
 .radio-custom::after {
@@ -255,7 +286,7 @@ textarea.error:focus {
   position: absolute;
   width: 10px;
   height: 10px;
-  background: #4CAF50;
+  background: var(--form-success);
   border-radius: 50%;
   top: 50%;
   left: 50%;
@@ -264,7 +295,7 @@ textarea.error:focus {
 }
 
 .custom-radio input:checked + .radio-custom {
-  border-color: #4CAF50;
+  border-color: var(--form-success);
 }
 
 .custom-radio input:checked + .radio-custom::after {
@@ -272,11 +303,11 @@ textarea.error:focus {
 }
 
 .custom-radio:hover .radio-custom {
-  border-color: #4CAF50;
+  border-color: var(--form-success);
 }
 
 .custom-radio input:focus + .radio-custom {
-  outline: 3px solid #4CAF50;
+  outline: 3px solid var(--form-input-focus);
   outline-offset: 2px;
 }
 
@@ -302,12 +333,13 @@ textarea.error:focus {
 .checkbox-custom {
   width: 20px;
   height: 20px;
-  border: 2px solid #ddd;
+  border: 2px solid var(--form-input-border);
   border-radius: 4px;
   margin-right: 0.5rem;
   position: relative;
   transition: all 0.2s ease;
   flex-shrink: 0;
+  background-color: var(--form-input-bg);
 }
 
 .checkbox-custom::after {
@@ -315,7 +347,7 @@ textarea.error:focus {
   position: absolute;
   width: 6px;
   height: 10px;
-  border: solid white;
+  border: solid var(--form-bg);
   border-width: 0 2px 2px 0;
   top: 2px;
   left: 6px;
@@ -324,8 +356,8 @@ textarea.error:focus {
 }
 
 .custom-checkbox input:checked + .checkbox-custom {
-  background-color: #4CAF50;
-  border-color: #4CAF50;
+  background-color: var(--form-success);
+  border-color: var(--form-success);
 }
 
 .custom-checkbox input:checked + .checkbox-custom::after {
@@ -333,11 +365,11 @@ textarea.error:focus {
 }
 
 .custom-checkbox:hover .checkbox-custom {
-  border-color: #4CAF50;
+  border-color: var(--form-success);
 }
 
 .custom-checkbox input:focus + .checkbox-custom {
-  outline: 3px solid #4CAF50;
+  outline: 3px solid var(--form-input-focus);
   outline-offset: 2px;
 }
 
@@ -354,7 +386,7 @@ textarea.error:focus {
 
 .submit-button {
   padding: 0.875rem 2rem;
-  background-color: #4CAF50;
+  background-color: var(--form-success);
   color: white;
   border: none;
   border-radius: 4px;
@@ -366,18 +398,18 @@ textarea.error:focus {
 }
 
 .submit-button:hover:not(:disabled) {
-  background-color: #45a049;
+  background-color: var(--form-input-focus);
   transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px var(--form-shadow);
 }
 
 .submit-button:focus {
-  outline: 3px solid #4CAF50;
+  outline: 3px solid var(--form-input-focus);
   outline-offset: 2px;
 }
 
 .submit-button:disabled {
-  background-color: #ccc;
+  background-color: var(--form-disabled);
   cursor: not-allowed;
   opacity: 0.6;
 }
@@ -415,7 +447,7 @@ textarea {
 /* Select dropdown */
 select {
   cursor: pointer;
-  background-color: white;
+  background-color: var(--form-input-bg);
   appearance: none;
   background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
   background-repeat: no-repeat;
