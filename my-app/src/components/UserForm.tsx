@@ -88,14 +88,13 @@ export const UserForm = () => {
   }, [formState.name, formState.email, formState.age]);
 
   // useMemo to check if form is valid
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const isFormValid = useMemo(() => {
     const hasNoErrors = Object.keys(formState.errors).every(
       key => !formState.errors[key as keyof typeof formState.errors]
     );
     const hasAllFields = formState.name && formState.email && formState.age;
     return hasNoErrors && hasAllFields;
-  }, [formState.errors, formState.name, formState.email, formState.age]);
+  }, [formState]);
 
   // useMemo to calculate form completion percentage
   const completionPercentage = useMemo(() => {
