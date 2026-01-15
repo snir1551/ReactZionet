@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { useLocalStorage } from '../hooks/useLocalStorage';
+import { useLocalStorage } from '@workspace/hooks';
 import { useToastStore } from '../stores/toastStore';
 import { CartContext } from './cart';
 import type { CartContextType, CartItem } from './cart';
@@ -11,8 +11,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const { addToast } = useToastStore();
 
   const addItem = (newItem: Omit<CartItem, 'quantity'>) => {
-    setItems((prevItems) => {
-      const existingItem = prevItems.find((item) => item.id === newItem.id);
+    setItems((prevItems: CartItem[]) => {
+      const existingItem = prevItems.find((item: CartItem) => item.id === newItem.id);
       
       if (existingItem) {
         // Item exists, increase quantity
@@ -20,7 +20,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
           type: 'success',
           message: `Added another ${newItem.title} to cart`,
         });
-        return prevItems.map((item) =>
+        return prevItems.map((item: CartItem) =>
           item.id === newItem.id
             ? { ...item, quantity: item.quantity + 1 }
             : item
@@ -37,14 +37,14 @@ export function CartProvider({ children }: { children: ReactNode }) {
   };
 
   const removeItem = (id: number) => {
-    const item = items.find((item) => item.id === id);
+    const item = items.find((item: CartItem) => item.id === id);
     if (item) {
       addToast({
         type: 'info',
         message: `${item.title} removed from cart`,
       });
     }
-    setItems((prevItems) => prevItems.filter((item) => item.id !== id));
+    setItems((prevItems: CartItem[]) => prevItems.filter((item: CartItem) => item.id !== id));
   };
 
   const updateQuantity = (id: number, quantity: number) => {
@@ -52,9 +52,9 @@ export function CartProvider({ children }: { children: ReactNode }) {
       removeItem(id);
       return;
     }
-    
-    setItems((prevItems) =>
-      prevItems.map((item) =>
+
+    setItems((prevItems: CartItem[]) =>
+      prevItems.map((item: CartItem) =>
         item.id === id ? { ...item, quantity } : item
       )
     );
@@ -71,7 +71,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   };
 
   const toggleSidebar = () => {
-    setIsOpen((prev) => !prev);
+    setIsOpen((prev: boolean) => !prev);
   };
 
   const openSidebar = () => {
@@ -83,8 +83,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
   };
 
   // Computed values
-  const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
-  const totalPrice = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const totalItems = items.reduce((sum: number, item: CartItem) => sum + item.quantity, 0);
+  const totalPrice = items.reduce((sum: number, item: CartItem) => sum + item.price * item.quantity, 0);
 
   const value: CartContextType = {
     items,

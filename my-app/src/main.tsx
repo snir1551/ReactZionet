@@ -1,7 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import './i18n' // Initialize i18n
+import '@workspace/i18n' // Initialize i18n
 
 // PrimeReact CSS imports - load theme, core CSS, and icons
 import 'primereact/resources/themes/lara-light-indigo/theme.css' // Default theme

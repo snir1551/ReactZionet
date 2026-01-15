@@ -88,6 +88,7 @@ export const UserForm = () => {
   }, [formState.name, formState.email, formState.age]);
 
   // useMemo to check if form is valid
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const isFormValid = useMemo(() => {
     const hasNoErrors = Object.keys(formState.errors).every(
       key => !formState.errors[key as keyof typeof formState.errors]
@@ -125,7 +126,7 @@ export const UserForm = () => {
       alert('Form submitted successfully!');
       dispatch({ type: 'RESET_FORM' });
       
-    } catch (error) {
+    } catch {
       alert('Submission failed. Please try again.');
     } finally {
       dispatch({ type: 'SET_SUBMITTING', isSubmitting: false });

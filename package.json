@@ -1,0 +1,38 @@
+{
+  "name": "react",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "nx": "node_modules\\.bin\\nx.cmd",
+    "serve": "node_modules\\.bin\\nx.cmd serve",
+    "build": "node_modules\\.bin\\nx.cmd build",
+    "lint": "node_modules\\.bin\\nx.cmd lint",
+    "test": "node_modules\\.bin\\nx.cmd test",
+    "graph": "node_modules\\.bin\\nx.cmd graph"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/snir1551/ReactZionet.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/snir1551/ReactZionet/issues"
+  },
+  "homepage": "https://github.com/snir1551/ReactZionet#readme",
+  "devDependencies": {
+    "@nx/eslint": "^22.3.3",
+    "@nx/eslint-plugin": "^22.3.3",
+    "@nx/vite": "^22.3.3",
+    "@tanstack/react-query": "^5.90.17",
+    "@types/react": "^19.2.8",
+    "@types/react-dom": "^19.2.3",
+    "i18next": "^25.7.4",
+    "nx": "^22.3.3",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "react-i18next": "^16.5.3"
+  }
+}

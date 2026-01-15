@@ -1,0 +1,17 @@
+{
+  "extends": "../../my-app/tsconfig.json",
+  "compilerOptions": {
+    "composite": true,
+    "jsx": "react-jsx",
+    "outDir": "../../dist/out-tsc",
+    "types": ["node"],
+    "baseUrl": ".",
+    "paths": {
+      "react": ["../../my-app/node_modules/@types/react"],
+      "i18next": ["../../my-app/node_modules/i18next"],
+      "react-i18next": ["../../my-app/node_modules/react-i18next"]
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
+}

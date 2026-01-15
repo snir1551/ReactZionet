@@ -4,7 +4,8 @@ export interface Toast {
   id: string;
   message: string;
   type: 'success' | 'error' | 'info' | 'warning';
-  duration?: number; // Added: configurable duration for auto-dismiss
+  duration?: number; // Configurable duration for auto-dismiss
+  dismissible?: boolean; // Allow manual dismissal
 }
 
 interface ToastHostProps {
