@@ -1,0 +1,10 @@
+{
+  "name": "@workspace/hooks",
+  "version": "0.0.0",
+  "type": "module",
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "@tanstack/react-query": "^5.0.0"
+  }
+}

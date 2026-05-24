@@ -1,0 +1,10 @@
+{
+  "name": "@workspace/i18n",
+  "version": "0.0.0",
+  "type": "module",
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "i18next": "^23.0.0",
+    "react-i18next": "^15.0.0"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "extends": "../../my-app/tsconfig.json",
+  "compilerOptions": {
+    "composite": true,
+    "jsx": "react-jsx",
+    "outDir": "../../dist/out-tsc",
+    "types": ["node"],
+    "baseUrl": ".",
+    "paths": {
+      "react": ["../../my-app/node_modules/@types/react"],
+      "react-dom": ["../../my-app/node_modules/@types/react-dom"]
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
+}

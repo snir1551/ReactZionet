@@ -19,14 +19,13 @@ export const Counter = ({ initialValue = 0 }: CounterProps) => {
     };
   }, [count]);
 
-  // useEffect to add count to history
-  useEffect(() => {
-    setHistory(prev => [...prev, count]);
-  }, [count]);
-
   // useCallback to memoize increment function
   const increment = useCallback(() => {
-    setCount(prev => prev + 1);
+    setCount(prev => {
+      const newCount = prev + 1;
+      setHistory(prevHistory => [...prevHistory, newCount]);
+      return newCount;
+    });
   }, []);
 
   // useCallback to memoize decrement function

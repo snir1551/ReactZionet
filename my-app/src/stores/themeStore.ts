@@ -66,7 +66,7 @@ if (typeof window !== 'undefined') {
       if (parsed.state?.primeTheme) {
         updatePrimeThemeCSS(parsed.state.primeTheme);
       }
-    } catch (e) {
+    } catch {
       // Ignore parsing errors
     }
   }

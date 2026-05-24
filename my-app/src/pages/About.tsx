@@ -1,20 +1,17 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import './About.css';
 
 export const About = () => {
-  const [visitTime, setVisitTime] = useState<string>('');
-  const [pageViews, setPageViews] = useState<number>(0);
-
-  useEffect(() => {
-    // Set the visit time when component mounts
-    setVisitTime(new Date().toLocaleString());
-    
-    // Get page views from localStorage and increment
-    const storedViews = localStorage.getItem('aboutPageViews');
-    const currentViews = storedViews ? parseInt(storedViews) + 1 : 1;
-    setPageViews(currentViews);
-    localStorage.setItem('aboutPageViews', currentViews.toString());
-  }, []);
+  const storedViews = typeof window !== 'undefined' ? localStorage.getItem('aboutPageViews') : null;
+  const initialViews = storedViews ? parseInt(storedViews) + 1 : 1;
+  
+  const [visitTime] = useState(() => new Date().toLocaleString());
+  const [pageViews] = useState(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('aboutPageViews', initialViews.toString());
+    }
+    return initialViews;
+  });
 
   return (
     <div className="about-container">

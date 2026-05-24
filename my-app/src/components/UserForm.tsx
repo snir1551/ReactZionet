@@ -94,7 +94,7 @@ export const UserForm = () => {
     );
     const hasAllFields = formState.name && formState.email && formState.age;
     return hasNoErrors && hasAllFields;
-  }, [formState.errors, formState.name, formState.email, formState.age]);
+  }, [formState]);
 
   // useMemo to calculate form completion percentage
   const completionPercentage = useMemo(() => {
@@ -125,7 +125,7 @@ export const UserForm = () => {
       alert('Form submitted successfully!');
       dispatch({ type: 'RESET_FORM' });
       
-    } catch (error) {
+    } catch {
       alert('Submission failed. Please try again.');
     } finally {
       dispatch({ type: 'SET_SUBMITTING', isSubmitting: false });
